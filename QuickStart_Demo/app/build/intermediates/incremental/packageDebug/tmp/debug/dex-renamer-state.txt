@@ -1,0 +1,4 @@
+#Mon Oct 17 22:11:57 CST 2022
+base.0=D\:\\Files\\Killddl\\401\\Android\\upload_6c6d60893c75a90457de7bfc7008a52c\\QuickStart_Demo\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

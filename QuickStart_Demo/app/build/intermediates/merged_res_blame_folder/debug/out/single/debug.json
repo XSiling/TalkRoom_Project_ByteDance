@@ -1,0 +1,142 @@
+[
+    {
+        "merged": "com.ss.rtc.demo.quickstart.app-merged_res-20:/layout_room.xml.flat",
+        "source": "com.ss.rtc.demo.quickstart.app-main-22:/layout/room.xml"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\mipmap-xhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable-xxhdpi_speaker_on.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\drawable-xxhdpi\\speaker_on.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable-hdpi_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-pngs-15:\\drawable-hdpi\\ic_launcher_background.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable-mdpi_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-pngs-15:\\drawable-mdpi\\ic_launcher_background.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable-xxhdpi_speaker_off.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\drawable-xxhdpi\\speaker_off.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable-xxhdpi_mute_video.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\drawable-xxhdpi\\mute_video.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable-xxhdpi_switch_camera.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\drawable-xxhdpi\\switch_camera.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\mipmap-mdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable-xxhdpi_launcher_quick_start.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\drawable-xxhdpi\\launcher_quick_start.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable-xxhdpi_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-pngs-15:\\drawable-xxhdpi\\ic_launcher_background.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable-xxhdpi_hang_up.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\drawable-xxhdpi\\hang_up.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\mipmap-xxxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\mipmap-xxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable-xxhdpi_normal_video.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\drawable-xxhdpi\\normal_video.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable-xhdpi_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-pngs-15:\\drawable-xhdpi\\ic_launcher_background.png"
+    },
+    {
+        "merged": "com.ss.rtc.demo.quickstart.app-merged_res-20:/layout_activity_main.xml.flat",
+        "source": "com.ss.rtc.demo.quickstart.app-main-22:/layout/activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable_join_room_btn_bg.xml.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\drawable\\join_room_btn_bg.xml"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable-xxhdpi_normal_audio.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\drawable-xxhdpi\\normal_audio.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable-anydpi-v21_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-pngs-15:\\drawable-anydpi-v21\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\layout_activity_room.xml.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\layout\\activity_room.xml"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\layout_activity_login.xml.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-pngs-15:\\drawable-anydpi-v24\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.ss.rtc.demo.quickstart.app-merged_res-20:/layout_log_in.xml.flat",
+        "source": "com.ss.rtc.demo.quickstart.app-main-22:/layout/log_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable-xxhdpi_mute_audio.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\drawable-xxhdpi\\mute_audio.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable-ldpi_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-pngs-15:\\drawable-ldpi\\ic_launcher_background.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-main-22:\\mipmap-hdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-merged_res-20:\\drawable-xxxhdpi_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\XSiling\\.gradle\\daemon\\7.4\\com.ss.rtc.demo.quickstart.app-pngs-15:\\drawable-xxxhdpi\\ic_launcher_background.png"
+    }
+]

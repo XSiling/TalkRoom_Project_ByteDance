@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.ss.rtc.demo.quickstart.app-mergeDebugResources-18:/values-h320dp-port-v13/values-h320dp-port-v13.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\XSiling\\.gradle\\caches\\transforms-3\\dcf7a84a93848909f750304886e2c984\\transformed\\material-1.4.0\\res\\values-h320dp-port-v13\\values-h320dp-port-v13.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "75",
+                        "endOffsets": "126"
+                    }
+                }
+            ]
+        }
+    ]
+}

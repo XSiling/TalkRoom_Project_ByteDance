@@ -1,0 +1,108 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.ss.rtc.demo.quickstart"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="19"
+8-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="30" />
+9-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml
+10
+11    <!-- MODIFY_AUDIO_SETTINGS、BLUETOOTH 权限对于音频的路由是必须的。没有BLUETOOTH权限会导致蓝牙耳机连接时，声音从外放播放而不是蓝牙耳机 -->
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:6:5-67
+12-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:6:22-64
+13    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+13-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:7:5-71
+13-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:7:22-68
+14    <uses-permission android:name="android.permission.CAMERA" />
+14-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:8:5-65
+14-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:8:22-62
+15    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+15-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:9:5-80
+15-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:9:22-77
+16    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+16-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:10:5-79
+16-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:10:22-76
+17    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+17-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:11:5-81
+17-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:11:22-78
+18    <uses-permission
+18-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:12:5-68
+19        android:name="android.permission.BLUETOOTH"
+19-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:12:22-65
+20        android:maxSdkVersion="30" />
+20-->[:VolcEngineRTC:] C:\Users\XSiling\.gradle\caches\transforms-3\77d04d3354b166c692f29a7964857a1e\transformed\jetified-VolcEngineRTC\AndroidManifest.xml:18:9-35
+21    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+21-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:13:5-77
+21-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:13:22-74
+22    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+22-->[:VolcEngineRTC:] C:\Users\XSiling\.gradle\caches\transforms-3\77d04d3354b166c692f29a7964857a1e\transformed\jetified-VolcEngineRTC\AndroidManifest.xml:14:5-79
+22-->[:VolcEngineRTC:] C:\Users\XSiling\.gradle\caches\transforms-3\77d04d3354b166c692f29a7964857a1e\transformed\jetified-VolcEngineRTC\AndroidManifest.xml:14:22-76
+23    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+23-->[:VolcEngineRTC:] C:\Users\XSiling\.gradle\caches\transforms-3\77d04d3354b166c692f29a7964857a1e\transformed\jetified-VolcEngineRTC\AndroidManifest.xml:19:5-76
+23-->[:VolcEngineRTC:] C:\Users\XSiling\.gradle\caches\transforms-3\77d04d3354b166c692f29a7964857a1e\transformed\jetified-VolcEngineRTC\AndroidManifest.xml:19:22-73
+24    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+24-->[:VolcEngineRTC:] C:\Users\XSiling\.gradle\caches\transforms-3\77d04d3354b166c692f29a7964857a1e\transformed\jetified-VolcEngineRTC\AndroidManifest.xml:20:5-75
+24-->[:VolcEngineRTC:] C:\Users\XSiling\.gradle\caches\transforms-3\77d04d3354b166c692f29a7964857a1e\transformed\jetified-VolcEngineRTC\AndroidManifest.xml:20:22-72
+25    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+25-->[:VolcEngineRTC:] C:\Users\XSiling\.gradle\caches\transforms-3\77d04d3354b166c692f29a7964857a1e\transformed\jetified-VolcEngineRTC\AndroidManifest.xml:21:5-76
+25-->[:VolcEngineRTC:] C:\Users\XSiling\.gradle\caches\transforms-3\77d04d3354b166c692f29a7964857a1e\transformed\jetified-VolcEngineRTC\AndroidManifest.xml:21:22-73
+26
+27    <application
+27-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:15:5-36:19
+28        android:allowBackup="true"
+28-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:16:9-35
+29        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+29-->[androidx.core:core:1.5.0] C:\Users\XSiling\.gradle\caches\transforms-3\5c5e8dce9a0ed12f290ac39851d18ca8\transformed\core-1.5.0\AndroidManifest.xml:24:18-86
+30        android:debuggable="true"
+31        android:icon="@drawable/launcher_quick_start"
+31-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:17:9-54
+32        android:label="@string/app_name"
+32-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:18:9-41
+33        android:roundIcon="@drawable/launcher_quick_start"
+33-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:19:9-59
+34        android:supportsRtl="true"
+34-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:20:9-35
+35        android:testOnly="true"
+36        android:theme="@style/Theme.MinimRTCDemo" >
+36-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:21:9-50
+37        <activity
+37-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:22:9-29:20
+38            android:name="com.ss.video.rtc.demo.quickstart.LogIn"
+38-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:22:19-72
+39            android:screenOrientation="portrait" >
+39-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:23:13-49
+40            <intent-filter>
+40-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:24:13-28:29
+41                <action android:name="android.intent.action.MAIN" />
+41-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:25:17-69
+41-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:25:25-66
+42
+43                <category android:name="android.intent.category.LAUNCHER" />
+43-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:27:17-77
+43-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:27:27-74
+44            </intent-filter>
+45        </activity>
+46        <activity android:name="com.ss.video.rtc.demo.quickstart.MainActivity" />
+46-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:30:9-91
+46-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:30:19-79
+47        <activity android:name="com.ss.video.rtc.demo.quickstart.Room" />
+47-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:31:9-83
+47-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:31:19-71
+48        <activity android:name="com.ss.video.rtc.demo.quickstart.LoginActivity" />
+48-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:32:9-92
+48-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:32:19-80
+49        <activity
+49-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:33:9-35:51
+50            android:name="com.ss.video.rtc.demo.quickstart.RTCRoomActivity"
+50-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:33:19-82
+51            android:launchMode="singleTop"
+51-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:34:13-43
+52            android:screenOrientation="portrait" />
+52-->D:\Files\Killddl\401\Android\upload_6c6d60893c75a90457de7bfc7008a52c\QuickStart_Demo\app\src\main\AndroidManifest.xml:35:13-49
+53    </application>
+54
+55</manifest>
