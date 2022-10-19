@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/btm_layout"
+        android:layout_width="733dp"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_leaveroom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="300dp"
+            android:text="Leave Room" />
+
+        <Button
+            android:id="@+id/btn_mic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="MIC" />
+
+        <Button
+            android:id="@+id/btn_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="600dp"
+            android:text="Video" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/usr1"
+        android:layout_width="182dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/usr1_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/usr2"
+        android:layout_width="182dp"
+        android:layout_height="180dp"
+        app:layout_constraintStart_toEndOf="@+id/usr1"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/usr2_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/usr3"
+        android:layout_width="182dp"
+        android:layout_height="180dp"
+        app:layout_constraintStart_toEndOf="@+id/usr2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/usr3_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/usr4"
+        android:layout_width="182dp"
+        android:layout_height="180dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/usr4_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/usr5"
+        android:layout_width="182dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usr1">
+
+        <TextView
+            android:id="@+id/usr5_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/usr6"
+        android:layout_width="182dp"
+        android:layout_height="180dp"
+        app:layout_constraintStart_toEndOf="@+id/usr5"
+        app:layout_constraintTop_toBottomOf="@+id/usr2">
+
+        <TextView
+            android:id="@+id/usr6_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/usr7"
+        android:layout_width="182dp"
+        android:layout_height="180dp"
+        app:layout_constraintStart_toEndOf="@+id/usr6"
+        app:layout_constraintTop_toBottomOf="@+id/usr3">
+
+        <TextView
+            android:id="@+id/usr7_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/usr8"
+        android:layout_width="182dp"
+        android:layout_height="180dp"
+        app:layout_constraintStart_toEndOf="@+id/usr7"
+        app:layout_constraintTop_toBottomOf="@+id/usr4">
+
+        <TextView
+            android:id="@+id/usr8_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
