@@ -38,118 +38,185 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/usr1"
+        android:id="@+id/usr1_layout"
         android:layout_width="182dp"
         android:layout_height="180dp"
         android:layout_marginStart="1dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <FrameLayout
+            android:id="@+id/usr1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
         <TextView
             android:id="@+id/usr1_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:background="#00BCD4"
+            android:editable="false"
+            android:text="TextView"
+            android:visibility="visible" />
+
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/usr2"
+        android:id="@+id/usr2_layout"
         android:layout_width="182dp"
         android:layout_height="180dp"
-        app:layout_constraintStart_toEndOf="@+id/usr1"
+        app:layout_constraintStart_toEndOf="@+id/usr1_layout"
         app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/usr2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/usr2_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />
+
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/usr3"
+        android:id="@+id/usr3_layout"
         android:layout_width="182dp"
         android:layout_height="180dp"
-        app:layout_constraintStart_toEndOf="@+id/usr2"
+        app:layout_constraintStart_toEndOf="@+id/usr2_layout"
         app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/usr3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/usr3_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />
+
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/usr4"
+        android:id="@+id/usr4_layout"
         android:layout_width="182dp"
         android:layout_height="180dp"
         android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <FrameLayout
+            android:id="@+id/usr4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
         <TextView
             android:id="@+id/usr4_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />
+
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/usr5"
+        android:id="@+id/usr5_layout"
         android:layout_width="182dp"
         android:layout_height="180dp"
         android:layout_marginStart="1dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usr1">
+        app:layout_constraintTop_toBottomOf="@+id/usr1_layout">
+
+        <FrameLayout
+            android:id="@+id/usr5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/usr5_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />
+
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/usr6"
+        android:id="@+id/usr6_layout"
         android:layout_width="182dp"
         android:layout_height="180dp"
-        app:layout_constraintStart_toEndOf="@+id/usr5"
-        app:layout_constraintTop_toBottomOf="@+id/usr2">
+        app:layout_constraintStart_toEndOf="@+id/usr5_layout"
+        app:layout_constraintTop_toBottomOf="@+id/usr2_layout">
+
+        <FrameLayout
+            android:id="@+id/usr6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/usr6_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />
+
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/usr7"
+        android:id="@+id/usr7_layout"
         android:layout_width="182dp"
         android:layout_height="180dp"
-        app:layout_constraintStart_toEndOf="@+id/usr6"
-        app:layout_constraintTop_toBottomOf="@+id/usr3">
+        app:layout_constraintStart_toEndOf="@+id/usr6_layout"
+        app:layout_constraintTop_toBottomOf="@+id/usr3_layout">
+
+        <FrameLayout
+            android:id="@+id/usr7"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/usr7_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />
+
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/usr8"
+        android:id="@+id/usr8_layout"
         android:layout_width="182dp"
         android:layout_height="180dp"
-        app:layout_constraintStart_toEndOf="@+id/usr7"
-        app:layout_constraintTop_toBottomOf="@+id/usr4">
+        app:layout_constraintStart_toEndOf="@+id/usr7_layout"
+        app:layout_constraintTop_toBottomOf="@+id/usr4_layout">
+
+        <FrameLayout
+            android:id="@+id/usr8"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/usr8_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />
+
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

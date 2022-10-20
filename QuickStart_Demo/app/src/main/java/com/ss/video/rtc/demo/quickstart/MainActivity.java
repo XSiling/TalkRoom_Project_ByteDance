@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +21,7 @@ import com.ss.rtc.demo.quickstart.R;
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
-
+    private String usrId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         EditText roomId = findViewById(R.id.roomId);
 
+        usrId = (String) getIntent().getExtras().get(Constants.USER_ID_EXTRA);
 
         createroomButton.setOnClickListener((v)->{
             String roomIdContent = roomId.getText().toString();
@@ -57,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
         }
         Intent j = new Intent(MainActivity.this, Room.class);
         j.putExtra(Constants.ROOM_ID_EXTRA, roomId);
+
+        j.putExtra(Constants.USER_ID_EXTRA, usrId);
+
+        //Log.d("tag", "hellohello!!!!!" + usrId);
+
         startActivity(j);
     }
 
