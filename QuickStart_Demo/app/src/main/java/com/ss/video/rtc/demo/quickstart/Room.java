@@ -1,8 +1,6 @@
 package com.ss.video.rtc.demo.quickstart;
 
 
-import android.Manifest;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,7 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import com.ss.bytertc.engine.RTCRoom;
 import com.ss.bytertc.engine.RTCRoomConfig;
@@ -27,6 +24,7 @@ import com.ss.bytertc.engine.data.StreamIndex;
 import com.ss.bytertc.engine.data.VideoFrameInfo;
 import com.ss.bytertc.engine.handler.IRTCVideoEventHandler;
 import com.ss.bytertc.engine.type.ChannelProfile;
+import com.ss.bytertc.engine.type.MediaStreamType;
 import com.ss.rtc.demo.quickstart.R;
 
 public class Room extends AppCompatActivity {
@@ -39,7 +37,12 @@ public class Room extends AppCompatActivity {
     private final FrameLayout[] mRemoteContainerArray = new FrameLayout[7];
     private final TextView[] mUserIdTvArray = new TextView[7];
     private final String [] mShowUidArray = new String[7];
+    private Button videoButton;
+    private Button micButton;
 
+    //some parameters related to audio/video switch
+    private boolean mIsMuteAudio = false;
+    private boolean mIsMuteVideo = false;
 
     private RTCVideo mRTCVideo;
     private RTCRoom mRTCRoom;
@@ -134,10 +137,13 @@ public class Room extends AppCompatActivity {
             finish();
         });
 
-        Intent intent = getIntent();
-        String roomId = intent.getStringExtra(Constants.ROOM_ID_EXTRA);
-        String userId = intent.getStringExtra(Constants.USER_ID_EXTRA);
+        //Intent intent = getIntent();
+        //String roomId = intent.getStringExtra(Constants.ROOM_ID_EXTRA);
+        //String userId = intent.getStringExtra(Constants.USER_ID_EXTRA);
 
+        String roomId = (String)getIntent().getExtras().get(Constants.ROOM_ID_EXTRA);
+        String userId = (String)getIntent().getExtras().get(Constants.USER_ID_EXTRA);
+        Log.d("tag","hello!!!!!!!!!!!!" + userId);
         initUI(roomId, userId);
         initEngineAndJoinRoom(roomId, userId);
 
@@ -146,15 +152,15 @@ public class Room extends AppCompatActivity {
     }
 
     private void initUI(String roomId, String userId){
-        mSelfContainer = findViewById(R.id.usr1);
+        mSelfContainer = findViewById(R.id.usr1_layout);
 
-        mRemoteContainerArray[0] = findViewById(R.id.usr2);
-        mRemoteContainerArray[1] = findViewById(R.id.usr3);
-        mRemoteContainerArray[2] = findViewById(R.id.usr4);
-        mRemoteContainerArray[3] = findViewById(R.id.usr5);
-        mRemoteContainerArray[4] = findViewById(R.id.usr6);
-        mRemoteContainerArray[5] = findViewById(R.id.usr7);
-        mRemoteContainerArray[6] = findViewById(R.id.usr8);
+        mRemoteContainerArray[0] = findViewById(R.id.usr2_layout);
+        mRemoteContainerArray[1] = findViewById(R.id.usr3_layout);
+        mRemoteContainerArray[2] = findViewById(R.id.usr4_layout);
+        mRemoteContainerArray[3] = findViewById(R.id.usr5_layout);
+        mRemoteContainerArray[4] = findViewById(R.id.usr6_layout);
+        mRemoteContainerArray[5] = findViewById(R.id.usr7_layout);
+        mRemoteContainerArray[6] = findViewById(R.id.usr8_layout);
 
         mUserIdTvArray[0] = findViewById(R.id.usr2_id);
         mUserIdTvArray[1] = findViewById(R.id.usr3_id);
@@ -164,12 +170,39 @@ public class Room extends AppCompatActivity {
         mUserIdTvArray[5] = findViewById(R.id.usr7_id);
         mUserIdTvArray[6] = findViewById(R.id.usr8_id);
 
+        micButton = (Button)this.findViewById(R.id.btn_mic);
+        videoButton = (Button)this.findViewById(R.id.btn_video);
+
+        micButton.setOnClickListener((v)-> updateLocalMicStatus());
+
+        videoButton.setOnClickListener((v)-> updateLocalVideoStatus());
+
         TextView usrID = findViewById(R.id.usr1_id);
         usrID.setText(userId);
+
+        usrID.bringToFront();
         Log.d("e","Here the userId ought to be: " + userId);
     }
 
 
+    private void updateLocalMicStatus(){
+        mIsMuteAudio = !mIsMuteAudio;
+        if (mIsMuteAudio){
+            mRTCRoom.unpublishStream(MediaStreamType.RTC_MEDIA_STREAM_TYPE_AUDIO);
+        }else{
+            mRTCRoom.publishStream(MediaStreamType.RTC_MEDIA_STREAM_TYPE_VIDEO);
+        }
+    }
+
+
+    private void updateLocalVideoStatus(){
+        mIsMuteVideo = !mIsMuteVideo;
+        if(mIsMuteVideo){
+            mRTCVideo.stopVideoCapture();
+        }else{
+            mRTCVideo.startVideoCapture();
+        }
+    }
 
     private void initEngineAndJoinRoom(String roomId, String userId){
         mRTCVideo = RTCVideo.createRTCVideo(getApplicationContext(), Constants.APPID, mIRtcVideoEventHandler, null, null);
@@ -193,10 +226,17 @@ public class Room extends AppCompatActivity {
         VideoCanvas videoCanvas = new VideoCanvas();
         TextureView renderView = new TextureView(this);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                250,
-                250);
-        mSelfContainer.removeAllViews();
+                500,
+                500);
+        //mSelfContainer.removeAllViews();
         mSelfContainer.addView(renderView, params);
+        findViewById(R.id.usr1_id).bringToFront();
+
+//      TextView usrID = findViewById(R.id.usr1_id);
+//      usrID.bringToFront();
+
+
+
         videoCanvas.renderView = renderView;
         videoCanvas.uid = uid;
         videoCanvas.isScreen = false;

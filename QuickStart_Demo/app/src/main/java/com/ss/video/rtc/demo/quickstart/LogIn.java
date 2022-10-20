@@ -28,7 +28,7 @@ public class LogIn extends AppCompatActivity {
 
         String SDKVersion = RTCEngine.getSdkVersion();
 
-        Log.d("tag","i'm requesting permissions!!!!!!!!!!");
+        //Log.d("tag","i'm requesting permissions!!!!!!!!!!");
 
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO},
@@ -63,7 +63,9 @@ public class LogIn extends AppCompatActivity {
         }
 
         Intent i = new Intent(LogIn.this, MainActivity.class);
+
         i.putExtra(Constants.USER_ID_EXTRA, usrId);
+        Log.d("tag","hello!!!!!!!!!!!" + Constants.USER_ID_EXTRA);
         startActivity(i);
     }
 
