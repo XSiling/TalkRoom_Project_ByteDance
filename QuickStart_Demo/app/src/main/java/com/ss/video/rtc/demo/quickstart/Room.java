@@ -27,6 +27,8 @@ import com.ss.bytertc.engine.type.ChannelProfile;
 import com.ss.bytertc.engine.type.MediaStreamType;
 import com.ss.rtc.demo.quickstart.R;
 
+import java.util.Objects;
+
 public class Room extends AppCompatActivity {
 
 
@@ -67,6 +69,13 @@ public class Room extends AppCompatActivity {
             Log.d("IRTCRoomEventHandler", "onUserLeave: " + uid);
             runOnUiThread(() -> removeRemoteView(uid));
         }
+
+//        @Override
+//        public void onUserStartVideoCapture(String roomId, String uid){
+//            super.onUserStartVideoCapture(roomId, uid);
+//
+//        }
+
     };
 
     private IRTCVideoEventHandler mIRtcVideoEventHandler = new IRTCVideoEventHandler(){
@@ -111,6 +120,8 @@ public class Room extends AppCompatActivity {
         mShowUidArray[emptyInx] = uid;
         mUserIdTvArray[emptyInx].setText(String.format("UserId:%s", uid));
         setRemoteRenderView(roomId, uid, mRemoteContainerArray[emptyInx]);
+
+        mUserIdTvArray[emptyInx].bringToFront();
     }
 
 
@@ -218,7 +229,15 @@ public class Room extends AppCompatActivity {
 
         RTCRoomConfig roomConfig = new RTCRoomConfig(ChannelProfile.CHANNEL_PROFILE_COMMUNICATION,
                 true, true, true);
-        int joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN, UserInfo.create(userId,""),roomConfig);
+
+        // here for the test!
+        if (Objects.equals(userId, "2")){
+            int joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN_BACK, UserInfo.create(userId,""), roomConfig);
+        }
+        else{
+            int joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN, UserInfo.create(userId,""),roomConfig);
+        }
+
 
     }
 
