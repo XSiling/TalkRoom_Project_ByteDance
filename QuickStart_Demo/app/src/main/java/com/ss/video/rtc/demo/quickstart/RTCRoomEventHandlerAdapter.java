@@ -13,7 +13,7 @@ import com.ss.bytertc.engine.type.StreamRemoveReason;
 
 import java.nio.ByteBuffer;
 
-public class RTCRoomEventHandlerAdapter extends IRTCRoomEventHandler {
+public class RTCRoomEventHandlerAdapter extends IRTCRoomEventHandler{
     @Override
     public void onLeaveRoom(RTCRoomStats stats) {
 
@@ -153,4 +153,6 @@ public class RTCRoomEventHandlerAdapter extends IRTCRoomEventHandler {
     public void onAudioStreamBanned(String uid, boolean banned) {
 
     }
+
+
 }
