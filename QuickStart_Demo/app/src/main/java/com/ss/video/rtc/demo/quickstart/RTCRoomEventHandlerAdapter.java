@@ -4,6 +4,8 @@ import com.ss.bytertc.engine.RTCStream;
 import com.ss.bytertc.engine.SubscribeConfig;
 import com.ss.bytertc.engine.UserInfo;
 import com.ss.bytertc.engine.data.AVSyncState;
+import com.ss.bytertc.engine.data.LocalAudioStreamError;
+import com.ss.bytertc.engine.data.LocalAudioStreamState;
 import com.ss.bytertc.engine.handler.IRTCRoomEventHandler;
 import com.ss.bytertc.engine.type.LocalStreamStats;
 import com.ss.bytertc.engine.type.MediaStreamType;
@@ -13,7 +15,7 @@ import com.ss.bytertc.engine.type.StreamRemoveReason;
 
 import java.nio.ByteBuffer;
 
-public class RTCRoomEventHandlerAdapter extends IRTCRoomEventHandler{
+public abstract class RTCRoomEventHandlerAdapter extends IRTCRoomEventHandler{
     @Override
     public void onLeaveRoom(RTCRoomStats stats) {
 
@@ -153,6 +155,7 @@ public class RTCRoomEventHandlerAdapter extends IRTCRoomEventHandler{
     public void onAudioStreamBanned(String uid, boolean banned) {
 
     }
+
 
 
 }

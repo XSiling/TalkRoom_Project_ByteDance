@@ -23,6 +23,8 @@ import com.ss.bytertc.engine.VideoCanvas;
 import com.ss.bytertc.engine.VideoEncoderConfig;
 import com.ss.bytertc.engine.data.AudioRoute;
 import com.ss.bytertc.engine.data.CameraId;
+import com.ss.bytertc.engine.data.LocalAudioStreamError;
+import com.ss.bytertc.engine.data.LocalAudioStreamState;
 import com.ss.bytertc.engine.data.RemoteStreamKey;
 import com.ss.bytertc.engine.data.StreamIndex;
 import com.ss.bytertc.engine.data.VideoFrameInfo;
@@ -111,6 +113,7 @@ public class RTCRoomActivity extends AppCompatActivity {
             Log.d("IRTCRoomEventHandler", "onUserLeave: " + uid);
             runOnUiThread(() -> removeRemoteView(uid));
         }
+
     };
 
     private IRTCVideoEventHandler mIRtcVideoEventHandler = new IRTCVideoEventHandler() {
@@ -123,6 +126,11 @@ public class RTCRoomActivity extends AppCompatActivity {
             super.onFirstRemoteVideoFrameDecoded(remoteStreamKey, frameInfo);
             Log.d("IRTCVideoEventHandler", "onFirstRemoteVideoFrame: " + remoteStreamKey.toString());
             runOnUiThread(() -> setRemoteView(remoteStreamKey.getRoomId(), remoteStreamKey.getUserId()));
+        }
+
+        @Override
+        public void onLocalAudioStateChanged(LocalAudioStreamState state, LocalAudioStreamError error){
+            Log.d("tag", "音频test" + String.valueOf(state));
         }
 
         /**
