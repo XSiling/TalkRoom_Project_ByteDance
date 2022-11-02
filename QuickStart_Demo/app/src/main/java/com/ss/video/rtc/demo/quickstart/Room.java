@@ -2,6 +2,7 @@ package com.ss.video.rtc.demo.quickstart;
 
 
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,6 +20,9 @@ import com.ss.bytertc.engine.RTCVideo;
 import com.ss.bytertc.engine.UserInfo;
 import com.ss.bytertc.engine.VideoCanvas;
 import com.ss.bytertc.engine.VideoEncoderConfig;
+import com.ss.bytertc.engine.data.CameraId;
+import com.ss.bytertc.engine.data.LocalAudioStreamError;
+import com.ss.bytertc.engine.data.LocalAudioStreamState;
 import com.ss.bytertc.engine.data.RemoteStreamKey;
 import com.ss.bytertc.engine.data.StreamIndex;
 import com.ss.bytertc.engine.data.VideoFrameInfo;
@@ -36,6 +40,7 @@ public class Room extends AppCompatActivity {
 
 
     private FrameLayout mSelfContainer;
+    private TextView usrID;
     private final FrameLayout[] mRemoteContainerArray = new FrameLayout[7];
     private final TextView[] mUserIdTvArray = new TextView[7];
     private final String [] mShowUidArray = new String[7];
@@ -48,6 +53,8 @@ public class Room extends AppCompatActivity {
 
     private RTCVideo mRTCVideo;
     private RTCRoom mRTCRoom;
+
+    private CameraId mCameraID = CameraId.CAMERA_ID_FRONT;
 
     private RTCRoomEventHandlerAdapter mIRtcRoomEventHandler = new RTCRoomEventHandlerAdapter(){
 
@@ -76,7 +83,11 @@ public class Room extends AppCompatActivity {
 //
 //        }
 
+
     };
+
+
+
 
     private IRTCVideoEventHandler mIRtcVideoEventHandler = new IRTCVideoEventHandler(){
         @Override
@@ -84,6 +95,20 @@ public class Room extends AppCompatActivity {
             super.onFirstRemoteVideoFrameDecoded(remoteStreamKey, frameInfo);
             Log.d("IRTCVideoEventHandler", "onFirstRemoteVideoFrame: " + remoteStreamKey.toString());
             runOnUiThread(() -> setRemoteView(remoteStreamKey.getRoomId(), remoteStreamKey.getUserId()));
+        }
+
+        @Override
+        public void onLocalAudioStateChanged(LocalAudioStreamState state, LocalAudioStreamError error){
+            Log.d("tag", "音频test" + String.valueOf(state));
+            switch(state){
+                case LOCAL_AUDIO_STREAM_STATE_ENCODING:
+                    usrID.setTextColor(android.graphics.Color.BLUE);
+                    Log.d("tag","音频testhere");
+                    break;
+                default:
+                    usrID.setTextColor(Color.BLACK);
+
+            }
         }
     };
 
@@ -188,11 +213,24 @@ public class Room extends AppCompatActivity {
 
         videoButton.setOnClickListener((v)-> updateLocalVideoStatus());
 
-        TextView usrID = findViewById(R.id.usr1_id);
+        findViewById(R.id.btn_switch_camera).setOnClickListener((v)->onSwitchCameraClick());
+
+        usrID = findViewById(R.id.usr1_id);
         usrID.setText(userId);
 
         usrID.bringToFront();
         Log.d("e","Here the userId ought to be: " + userId);
+    }
+
+
+
+    private void onSwitchCameraClick(){
+        if (mCameraID.equals(CameraId.CAMERA_ID_FRONT)) {
+            mCameraID = CameraId.CAMERA_ID_BACK;
+        } else {
+            mCameraID = CameraId.CAMERA_ID_FRONT;
+        }
+        mRTCVideo.switchCamera(mCameraID);
     }
 
 
