@@ -1,28 +1,29 @@
 package com.ss.video.rtc.demo.quickstart;
 
 
+
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.TextureView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ss.bytertc.engine.RTCRoom;
 import com.ss.bytertc.engine.RTCRoomConfig;
 import com.ss.bytertc.engine.RTCVideo;
 import com.ss.bytertc.engine.UserInfo;
 import com.ss.bytertc.engine.VideoCanvas;
-import com.ss.bytertc.engine.VideoEncoderConfig;
+
 import com.ss.bytertc.engine.data.CameraId;
-import com.ss.bytertc.engine.data.LocalAudioStreamError;
-import com.ss.bytertc.engine.data.LocalAudioStreamState;
 import com.ss.bytertc.engine.data.RemoteStreamKey;
 import com.ss.bytertc.engine.data.StreamIndex;
 import com.ss.bytertc.engine.data.VideoFrameInfo;
@@ -31,19 +32,15 @@ import com.ss.bytertc.engine.type.ChannelProfile;
 import com.ss.bytertc.engine.type.MediaStreamType;
 import com.ss.rtc.demo.quickstart.R;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Room extends AppCompatActivity {
+    private RecyclerView mUserRV;
+    private List<User> mUserList = new ArrayList<>();
+    private UserAdapter mUserAdapter;
 
-
-    private int roomUserNum = 0;//房间内的人数，根据此调整布局
-
-
-    private FrameLayout mSelfContainer;
-    private TextView usrID;
-    private final FrameLayout[] mRemoteContainerArray = new FrameLayout[7];
-    private final TextView[] mUserIdTvArray = new TextView[7];
-    private final String [] mShowUidArray = new String[7];
     private Button videoButton;
     private Button micButton;
 
@@ -56,6 +53,139 @@ public class Room extends AppCompatActivity {
 
     private CameraId mCameraID = CameraId.CAMERA_ID_FRONT;
 
+    private void setWH(int position, int width, int height){
+        mUserList.get(position).setmWidth(width);
+        mUserList.get(position).setmHeight(height);
+    }
+
+    private void FreshWidthHeight(){
+        //不在这个函数里notify change
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(Room.this, 4);
+        int totalWidth = this.getWindowManager().getDefaultDisplay().getWidth();
+        int totalHeight = this.getWindowManager().getDefaultDisplay().getHeight() * 4 / 5;
+        int userNum = mUserList.size();
+        switch (userNum){
+            case 1:
+                setWH(0, totalWidth, totalHeight);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 4;
+                    }
+                });
+                break;
+            case 2:
+                setWH(0, totalWidth/2, totalHeight);
+                setWH(1, totalWidth/2, totalHeight);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 2;
+                    }
+                });
+                break;
+            case 3:
+                setWH(0, totalWidth, totalHeight/2);
+                setWH(1, totalWidth/2, totalHeight/2);
+                setWH(2, totalWidth/2, totalHeight/2);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        switch(position){
+                            case 0:
+                                return 4;
+                            default:
+                                return 2;
+                        }
+                    }
+                });
+                break;
+            case 4:
+                setWH(0, totalWidth/2, totalHeight/2);
+                setWH(1, totalWidth/2, totalHeight/2);
+                setWH(2, totalWidth/2, totalHeight/2);
+                setWH(3, totalWidth/2, totalHeight/2);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 2;
+                    }
+                });
+                break;
+            case 5:
+                setWH(0, totalWidth, totalHeight/2);
+                setWH(1, totalWidth/4, totalHeight/2);
+                setWH(2, totalWidth/4, totalHeight/2);
+                setWH(3, totalWidth/4, totalHeight/2);
+                setWH(4, totalWidth/4, totalHeight/2);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        switch(position){
+                            case 0:
+                                return 4;
+                            default:
+                                return 1;
+                        }
+                    }
+                });
+                break;
+            case 6:
+                setWH(0, totalWidth/2, totalHeight/2);
+                setWH(1, totalWidth/2, totalHeight/2);
+                setWH(2, totalWidth/4, totalHeight/2);
+                setWH(3, totalWidth/4, totalHeight/2);
+                setWH(4, totalWidth/4, totalHeight/2);
+                setWH(5, totalWidth/4, totalHeight/2);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        switch(position){
+                            case 0:
+                            case 1:
+                                return 2;
+                            default:
+                                return 1;
+                        }
+                    }
+                });
+                break;
+
+            case 7:
+                setWH(0, totalWidth/4, totalHeight/2);
+                setWH(1, totalWidth/4, totalHeight/2);
+                setWH(2, totalWidth/4, totalHeight/2);
+                setWH(3, totalWidth/4, totalHeight/2);
+                setWH(4, totalWidth/4, totalHeight/2);
+                setWH(5, totalWidth/4, totalHeight/2);
+                setWH(6, totalWidth/4, totalHeight/2);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 1;
+                    }
+                });
+                break;
+            case 8:
+                setWH(0, totalWidth/4, totalHeight/2);
+                setWH(1, totalWidth/4, totalHeight/2);
+                setWH(2, totalWidth/4, totalHeight/2);
+                setWH(3, totalWidth/4, totalHeight/2);
+                setWH(4, totalWidth/4, totalHeight/2);
+                setWH(5, totalWidth/4, totalHeight/2);
+                setWH(6, totalWidth/4, totalHeight/2);
+                setWH(7, totalWidth/4, totalHeight/2);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 1;
+                    }
+                });
+                break;
+        }
+        mUserRV.setLayoutManager(gridLayoutManager);
+    }
+
     private RTCRoomEventHandlerAdapter mIRtcRoomEventHandler = new RTCRoomEventHandlerAdapter(){
 
         /**
@@ -66,7 +196,6 @@ public class Room extends AppCompatActivity {
         @Override
         public void onUserJoined(UserInfo userInfo, int elapsed){
             super.onUserJoined(userInfo, elapsed);
-            roomUserNum += 1;
             Log.d("IRTCRoomEventHandler", "onUserJoined: " + userInfo.getUid());
         }
 
@@ -76,14 +205,6 @@ public class Room extends AppCompatActivity {
             Log.d("IRTCRoomEventHandler", "onUserLeave: " + uid);
             runOnUiThread(() -> removeRemoteView(uid));
         }
-
-//        @Override
-//        public void onUserStartVideoCapture(String roomId, String uid){
-//            super.onUserStartVideoCapture(roomId, uid);
-//
-//        }
-
-
     };
 
 
@@ -97,28 +218,27 @@ public class Room extends AppCompatActivity {
             runOnUiThread(() -> setRemoteView(remoteStreamKey.getRoomId(), remoteStreamKey.getUserId()));
         }
 
-        @Override
-        public void onLocalAudioStateChanged(LocalAudioStreamState state, LocalAudioStreamError error){
-            Log.d("tag", "音频test" + String.valueOf(state));
-            switch(state){
-                case LOCAL_AUDIO_STREAM_STATE_ENCODING:
-                    usrID.setTextColor(android.graphics.Color.BLUE);
-                    Log.d("tag","音频testhere");
-                    break;
-                default:
-                    usrID.setTextColor(Color.BLACK);
-
-            }
-        }
+//        @Override
+//        public void onLocalAudioStateChanged(LocalAudioStreamState state, LocalAudioStreamError error){
+//            Log.d("tag", "音频test" + String.valueOf(state));
+//            switch(state){
+//                case LOCAL_AUDIO_STREAM_STATE_ENCODING:
+//                    usrID.setTextColor(android.graphics.Color.BLUE);
+//                    Log.d("tag","音频testhere");
+//                    break;
+//                default:
+//                    usrID.setTextColor(Color.BLACK);
+//            }
+//        }
     };
 
-    private void setRemoteRenderView(String roomId, String uid, FrameLayout container){
+    private void setRemoteRenderView(String roomId, String uid){
         TextureView renderView = new TextureView(this);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
-        container.removeAllViews();
-        container.addView(renderView, params);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(500,500);
+
+        mUserList.add(new User(renderView, params, uid));
+        FreshWidthHeight();
+        mUserAdapter.notifyDataSetChanged();
 
         VideoCanvas videoCanvas = new VideoCanvas();
         videoCanvas.renderView = renderView;
@@ -131,31 +251,40 @@ public class Room extends AppCompatActivity {
     }
 
     private void setRemoteView(String roomId, String uid){
-        int emptyInx = -1;
-        for(int i=0; i < mShowUidArray.length; i++){
-            if (TextUtils.isEmpty(mShowUidArray[i]) && emptyInx == -1){
-                emptyInx = i;
-            }else if (TextUtils.equals(uid, mShowUidArray[i])){
-                return;
+        //如果现在的list里有一个相同的人，把它踢掉
+        for(int i=0; i < mUserList.size(); ++i){
+            if (mUserList.get(i).mUid == uid){
+                if (i == 0){
+                    finish();
+                }
+                else{
+                    mUserList.remove(i);
+                    FreshWidthHeight();
+                    mUserAdapter.notifyDataSetChanged();
+                    break;
+                }
             }
         }
-        if (emptyInx<0){
-            return;
-        }
-        mShowUidArray[emptyInx] = uid;
-        mUserIdTvArray[emptyInx].setText(String.format("UserId:%s", uid));
-        setRemoteRenderView(roomId, uid, mRemoteContainerArray[emptyInx]);
 
-        mUserIdTvArray[emptyInx].bringToFront();
+        //如果没有的话，可以加新用户了
+        setRemoteRenderView(roomId, uid);
     }
 
 
     private void removeRemoteView(String uid){
-        for (int i=0; i < mShowUidArray.length; i++){
-            if (TextUtils.equals(uid, mShowUidArray[i])){
-                mShowUidArray[i] = null;
-                mUserIdTvArray[i].setText(null);
-                mRemoteContainerArray[i].removeAllViews();
+//        for (int i=0; i < mShowUidArray.length; i++){
+//            if (TextUtils.equals(uid, mShowUidArray[i])){
+//                mShowUidArray[i] = null;
+//                mUserIdTvArray[i].setText(null);
+//                mRemoteContainerArray[i].removeAllViews();
+//            }
+//        }
+        for (int i=0; i < mUserList.size(); ++i){
+            if (mUserList.get(i).mUid == uid){
+                mUserList.remove(i);
+                FreshWidthHeight();
+                mUserAdapter.notifyDataSetChanged();
+                break;
             }
         }
     }
@@ -168,14 +297,18 @@ public class Room extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.room);
 
+        mUserRV = findViewById(R.id.user_rv);
+        mUserAdapter = new UserAdapter();
+        mUserRV.setAdapter(mUserAdapter);
+        mUserRV.setLayoutManager(new GridLayoutManager(Room.this,1));
+
+
         Button btn_LeaveRoom = (Button) findViewById(R.id.btn_leaveroom);
         btn_LeaveRoom.setOnClickListener((v)->{
             finish();
         });
 
-        //Intent intent = getIntent();
-        //String roomId = intent.getStringExtra(Constants.ROOM_ID_EXTRA);
-        //String userId = intent.getStringExtra(Constants.USER_ID_EXTRA);
+
 
         String roomId = (String)getIntent().getExtras().get(Constants.ROOM_ID_EXTRA);
         String userId = (String)getIntent().getExtras().get(Constants.USER_ID_EXTRA);
@@ -187,25 +320,45 @@ public class Room extends AppCompatActivity {
 
     }
 
+    class UserAdapter extends RecyclerView.Adapter<UserHolder>{
+        @NonNull
+        @Override
+        public UserHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+            View view = View.inflate(Room.this, R.layout.item_user, null);
+            UserHolder myUserHolder = new UserHolder(view);
+            return myUserHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull UserHolder holder, int position){
+            User user = mUserList.get(position);
+//            Log.i("tag", "the width is:" + String.valueOf(holder.avatar_layout.getWidth()));
+//            Log.i("tag", "the height is :" + String.valueOf(holder.avatar_layout.getHeight()));
+//            Log.i("tag","the width of mView(video) is:" + String.valueOf(user.mView.getWidth()));
+//            Log.i("tag","the width of mView(video) is:" + String.valueOf(user.mView.getHeight()));
+            holder.avatar_layout.addView(user.mView, user.mWidth, user.mHeight);
+            holder.id_layout.setText(user.mUid);
+        }
+
+        @Override
+        public int getItemCount(){
+            return mUserList.size();
+        }
+
+    }
+
+    class UserHolder extends RecyclerView.ViewHolder{
+        FrameLayout avatar_layout;
+        TextView id_layout;
+
+        public UserHolder(@NonNull View itemView){
+            super(itemView);
+            avatar_layout = itemView.findViewById(R.id.user_layout);
+            id_layout = itemView.findViewById(R.id.user_id);
+        }
+    }
+
     private void initUI(String roomId, String userId){
-        mSelfContainer = findViewById(R.id.usr1_layout);
-
-        mRemoteContainerArray[0] = findViewById(R.id.usr2_layout);
-        mRemoteContainerArray[1] = findViewById(R.id.usr3_layout);
-        mRemoteContainerArray[2] = findViewById(R.id.usr4_layout);
-        mRemoteContainerArray[3] = findViewById(R.id.usr5_layout);
-        mRemoteContainerArray[4] = findViewById(R.id.usr6_layout);
-        mRemoteContainerArray[5] = findViewById(R.id.usr7_layout);
-        mRemoteContainerArray[6] = findViewById(R.id.usr8_layout);
-
-        mUserIdTvArray[0] = findViewById(R.id.usr2_id);
-        mUserIdTvArray[1] = findViewById(R.id.usr3_id);
-        mUserIdTvArray[2] = findViewById(R.id.usr4_id);
-        mUserIdTvArray[3] = findViewById(R.id.usr5_id);
-        mUserIdTvArray[4] = findViewById(R.id.usr6_id);
-        mUserIdTvArray[5] = findViewById(R.id.usr7_id);
-        mUserIdTvArray[6] = findViewById(R.id.usr8_id);
-
         micButton = (Button)this.findViewById(R.id.btn_mic);
         videoButton = (Button)this.findViewById(R.id.btn_video);
 
@@ -215,10 +368,7 @@ public class Room extends AppCompatActivity {
 
         findViewById(R.id.btn_switch_camera).setOnClickListener((v)->onSwitchCameraClick());
 
-        usrID = findViewById(R.id.usr1_id);
-        usrID.setText(userId);
-
-        usrID.bringToFront();
+        //add one user
         Log.d("e","Here the userId ought to be: " + userId);
     }
 
@@ -256,8 +406,10 @@ public class Room extends AppCompatActivity {
     private void initEngineAndJoinRoom(String roomId, String userId){
         mRTCVideo = RTCVideo.createRTCVideo(getApplicationContext(), Constants.APPID, mIRtcVideoEventHandler, null, null);
 
-        VideoEncoderConfig videoEncoderConfig = new VideoEncoderConfig(182,180,15,800);
-        mRTCVideo.setVideoEncoderConfig(videoEncoderConfig);
+//      VideoEncoderConfig videoEncoderConfig = new VideoEncoderConfig(182,180,15,800);
+//      mRTCVideo.setVideoEncoderConfig(videoEncoderConfig);
+
+        mUserList.clear();
         setLocalRenderView(userId);
 
         mRTCVideo.startVideoCapture();
@@ -269,29 +421,32 @@ public class Room extends AppCompatActivity {
                 true, true, true);
 
         // here for the test!
-        if (Objects.equals(userId, "2")){
-            int joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN_BACK, UserInfo.create(userId,""), roomConfig);
+        switch(userId){
+            case "1":
+                mRTCRoom.joinRoom(Constants.TOKEN_1, UserInfo.create(userId, ""), roomConfig);
+                break;
+            case "2":
+                mRTCRoom.joinRoom(Constants.TOKEN_2, UserInfo.create(userId, ""), roomConfig);
+                break;
+            case "3":
+                mRTCRoom.joinRoom(Constants.TOKEN_3, UserInfo.create(userId, ""), roomConfig);
+                break;
+            default:
+                mRTCRoom.joinRoom(Constants.TOKEN_1, UserInfo.create(userId, ""), roomConfig);
+                break;
         }
-        else{
-            int joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN, UserInfo.create(userId,""),roomConfig);
-        }
-
 
     }
 
     private void setLocalRenderView(String uid){
+
         VideoCanvas videoCanvas = new VideoCanvas();
         TextureView renderView = new TextureView(this);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                500,
-                500);
-        //mSelfContainer.removeAllViews();
-        mSelfContainer.addView(renderView, params);
-        findViewById(R.id.usr1_id).bringToFront();
-
-//      TextView usrID = findViewById(R.id.usr1_id);
-//      usrID.bringToFront();
-
+        //FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(500,500);
+        mUserList.add(new User(renderView, params, uid));
+        FreshWidthHeight();
+        mUserAdapter.notifyDataSetChanged();
 
 
         videoCanvas.renderView = renderView;
