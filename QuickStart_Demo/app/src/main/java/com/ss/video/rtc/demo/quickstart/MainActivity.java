@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             return;
 
         }
+//        Intent j = new Intent(MainActivity.this, Room.class); here we replace Room with RoomDebug for debugging
         Intent j = new Intent(MainActivity.this, Room.class);
         j.putExtra(Constants.ROOM_ID_EXTRA, roomId);
 
