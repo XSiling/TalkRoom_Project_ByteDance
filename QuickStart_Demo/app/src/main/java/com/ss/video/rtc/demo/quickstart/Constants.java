@@ -9,12 +9,12 @@ public class Constants {
     public static final String APPID = "634a63b0ab430d0158d27c85";
 
     //TOKEN 加入房间的时候需要使用token完成鉴权，详情参见{https://www.volcengine.com/docs/6348/70121}
-    public static final String TOKEN_1 = "001634a63b0ab430d0158d27c85OwCXXFIFOddhY7kRa2MEADEyMzQBADEGAAAAuRFrYwEAuRFrYwIAuRFrYwMAuRFrYwQAuRFrYwUAuRFrYyAAloyOrHRIdelpApwuv131cpx+u0A+wH0V2zSvreu1Fpk=";
+    public static final String TOKEN_1 = "001634a63b0ab430d0158d27c85OwDN4ZEDNpBrY7bKdGMEADEyMzQBADEGAAAAtsp0YwEAtsp0YwIAtsp0YwMAtsp0YwQAtsp0YwUAtsp0YyAAr66AG7jWaU9cPuwdHVOk5EtkqEjz5oISO5LWmReROYY=";
 
 
-    public static final String TOKEN_2 = "001634a63b0ab430d0158d27c85OwBk6hIEYNdhY+ARa2MEADEyMzQBADIGAAAA4BFrYwEA4BFrYwIA4BFrYwMA4BFrYwQA4BFrYwUA4BFrYyAAiZgXp2A6MuoKc2Tf1AlAZ7hg72lt9QX5OK04445VRd8=";
+    public static final String TOKEN_2 = "001634a63b0ab430d0158d27c85OwAe+/wBS5BrY8vKdGMEADEyMzQBADIGAAAAy8p0YwEAy8p0YwIAy8p0YwMAy8p0YwQAy8p0YwUAy8p0YyAA0tNbxosBxhlRYybxJsg382oSWswyNBPEU1/kOqk08oE=";
 
-    public static final String TOKEN_3 = "001634a63b0ab430d0158d27c85OwDXloYBbNdhY+wRa2MEADEyMzQBADMGAAAA7BFrYwEA7BFrYwIA7BFrYwMA7BFrYwQA7BFrYwUA7BFrYyAAYGAoOKruueVEgk0RMYLkqJGzq9owYXRYwE4GR+C56jU=";
+    public static final String TOKEN_3 = "001634a63b0ab430d0158d27c85OwCO/7sEVpBrY9bKdGMEADEyMzQBADMGAAAA1sp0YwEA1sp0YwIA1sp0YwMA1sp0YwQA1sp0YwUA1sp0YyAAbRj5XnVBJCp5MnFsXOXch+zMCCC3fJQNyiZspiKERc0=";
 
     //INPUT_REGEX SDK 对房间名、用户名的限制是：非空且最大长度不超过128位的数字、大小写字母、@ . _ -
     public static final String INPUT_REGEX = "^[a-zA-Z0-9@._-]{1,128}$";
