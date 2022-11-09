@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -258,14 +258,17 @@
 <!--            </LinearLayout>-->
 
 <!--        </LinearLayout>-->
-        
+
+        <!-- 聊天recycleview -->
+        <!--            tools:listitem="@layout/item_chat"/>-->
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/user_rv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
-            tools:listitem="layout/item_listener"/>
-
+            tools:listitem="layout/item_listener" />
 
         <LinearLayout
             android:id="@+id/hint"
@@ -305,6 +308,19 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btn_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Chat" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
                 <Button
                     android:id="@+id/btn_video"
                     android:layout_width="wrap_content"
@@ -330,9 +346,64 @@
         </LinearLayout>
 
 
+        <!--   输入框 + 发送   -->
+        <FrameLayout
+            android:id="@+id/voice_chat_demo_main_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F20E0825"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <EditText
+                android:id="@+id/voice_chat_demo_main_input_et"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="88dp"
+                android:background="@color/white"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:hint="说点什么"
+                android:maxLines="3"
+                android:minHeight="36dp"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/black"
+                android:textColorHint="#46FFFFFF"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/voice_chat_demo_main_input_send"
+                android:layout_width="60dp"
+                android:layout_height="28dp"
+                android:layout_gravity="right|bottom"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="4dp"
+                android:background="#1664FF"
+                android:gravity="center"
+                android:text="发送"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+
+        </FrameLayout>
+
 
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/review"
+        android:layout_width="196dp"
+        android:layout_height="165dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/voice_chat_demo_main_chat_rv"
+        android:layout_width="323dp"
+        android:layout_height="262dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginLeft="100dp" />
 
 
 </FrameLayout>

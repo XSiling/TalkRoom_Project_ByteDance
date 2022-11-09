@@ -3,16 +3,21 @@ package com.ss.video.rtc.demo.quickstart;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.TextureView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ss.bytertc.engine.RTCEngine;
 import com.ss.bytertc.engine.RTCRoom;
@@ -36,6 +41,8 @@ import com.ss.rtc.demo.quickstart.R;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * VolcEngineRTC 视频通话的主页面
@@ -92,6 +99,16 @@ public class RTCRoomActivity extends AppCompatActivity {
 
     private RTCVideo mRTCVideo;
     private RTCRoom mRTCRoom;
+
+//
+    private RecyclerView mVCChatRv;
+
+    private Timer timer;
+    private boolean Start;
+    private int cnt;
+
+//
+
 
     private RTCRoomEventHandlerAdapter mIRtcRoomEventHandler = new RTCRoomEventHandlerAdapter() {
 
@@ -204,7 +221,7 @@ public class RTCRoomActivity extends AppCompatActivity {
         mRTCRoom.setRTCRoomEventHandler(mIRtcRoomEventHandler);
         RTCRoomConfig roomConfig = new RTCRoomConfig(ChannelProfile.CHANNEL_PROFILE_COMMUNICATION,
                 true, true, true);
-        int joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN,
+        int joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN_1,
                 UserInfo.create(userId, ""), roomConfig);
         Log.i("TAG", "initEngineAndJoinRoom: " + joinRoomRes);
     }
@@ -335,4 +352,7 @@ public class RTCRoomActivity extends AppCompatActivity {
         mIRtcRoomEventHandler = null;
         mRTCVideo = null;
     }
+
+
+
 }
