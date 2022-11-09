@@ -650,6 +650,7 @@ void setInvisible() {
                 joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN_1, UserInfo.create(userId, ""), roomConfig);
                 break;
         }
+//        joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN_3, UserInfo.create(userId, ""), roomConfig);
         Log.i("tag","initEngineAndJoinRoom:" + joinRoomRes);
 
     }
