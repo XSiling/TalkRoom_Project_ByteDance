@@ -6,6 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/loading_view"
+        android:layout_gravity="center"
+        app:lottie_rawRes="@raw/soccer"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false"
+        android:visibility="gone"
+        />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"

@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.ss.rtc.demo.quickstart.R;
 import java.util.regex.Pattern;
 
 public class LogIn extends AppCompatActivity {
+    private FrameLayout frame;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -29,6 +32,8 @@ public class LogIn extends AppCompatActivity {
         String SDKVersion = RTCEngine.getSdkVersion();
 
         //Log.d("tag","i'm requesting permissions!!!!!!!!!!");
+        frame = findViewById(R.id.version_tv);
+
 
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO},
@@ -44,6 +49,8 @@ public class LogIn extends AppCompatActivity {
             String passwordContent = password.getText().toString();
             logIn(usrInputContent, passwordContent);
         });
+
+
 
 
     }
