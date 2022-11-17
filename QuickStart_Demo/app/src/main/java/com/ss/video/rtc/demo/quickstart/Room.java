@@ -501,6 +501,8 @@ void setInvisible() {
 
         String roomId = (String)getIntent().getExtras().get(Constants.ROOM_ID_EXTRA);
         String userId = (String)getIntent().getExtras().get(Constants.USER_ID_EXTRA);
+        
+
         Log.d("tag","hello!!!!!!!!!!!!" + userId);
         initUI(roomId, userId);
         initEngineAndJoinRoom(roomId, userId);

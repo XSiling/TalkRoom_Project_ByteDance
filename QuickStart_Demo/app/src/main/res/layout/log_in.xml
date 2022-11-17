@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/version_tv"
     android:layout_width="match_parent"
+    android:background="@color/grey"
     android:layout_height="match_parent">
 
 
@@ -25,6 +26,7 @@
         android:layout_marginStart="142dp"
         android:layout_marginTop="170dp"
         android:layout_marginEnd="142dp"
+        android:src="@drawable/pexel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -66,7 +68,7 @@
         android:layout_marginStart="158dp"
         android:layout_marginTop="39dp"
         android:layout_marginEnd="159dp"
-        android:text="Button"
+        android:text="登录"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usrPasswd" />
@@ -78,7 +80,7 @@
         android:layout_marginStart="176dp"
         android:layout_marginEnd="177dp"
         android:layout_marginBottom="4dp"
-        android:text="TextView"
+        android:text="TalkRoom_1.0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
