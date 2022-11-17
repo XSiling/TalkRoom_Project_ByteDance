@@ -63,10 +63,12 @@ public class Room extends AppCompatActivity {
 
     private Button videoButton;
     private Button micButton;
+    private Button chatButton;
 
     //some parameters related to audio/video switch
     private boolean mIsMuteAudio = false;
     private boolean mIsMuteVideo = false;
+    private boolean mIsMuteChat = true;
 
     private RTCVideo mRTCVideo;
     private RTCRoom mRTCRoom;
@@ -561,11 +563,12 @@ void setInvisible() {
     private void initUI(String roomId, String userId){
         micButton = (Button)this.findViewById(R.id.btn_mic);
         videoButton = (Button)this.findViewById(R.id.btn_video);
-
+        chatButton = (Button)this.findViewById(R.id.btn_chat);
         micButton.setOnClickListener((v)-> updateLocalMicStatus());
 
         videoButton.setOnClickListener((v)-> updateLocalVideoStatus());
 
+        chatButton.setOnClickListener((v)->updateChatStatus());
         findViewById(R.id.btn_switch_camera).setOnClickListener((v)->onSwitchCameraClick());
 
         mSelfContainer = findViewById(R.id.usr1_layout);
@@ -612,6 +615,16 @@ void setInvisible() {
         }
     }
 
+    private void updateChatStatus(){
+        mIsMuteChat = !mIsMuteChat;
+        if (mIsMuteChat){
+            this.findViewById(R.id.voice_chat_demo_main_input_layout).setVisibility(View.GONE);
+        }else{
+            this.findViewById(R.id.voice_chat_demo_main_input_layout).setVisibility(View.VISIBLE);
+        }
+
+
+    }
 
     private void updateLocalVideoStatus(){
         mIsMuteVideo = !mIsMuteVideo;
