@@ -489,7 +489,7 @@ void setInvisible() {
         for (int i=0; i < mShowUidArray.length; i++){
             if (TextUtils.equals(uid, mShowUidArray[i])){
                 mShowUidArray[i] = null;
-                mUserIdArray[i].setText(null);
+                mUserIdArray[i].setText("Empty");
                 mRemoteContainerArray[i].removeAllViews();
             }
         }
