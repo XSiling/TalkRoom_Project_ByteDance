@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey"
-    tools:context="com.ss.video.rtc.demo.quickstart.RTCRoomActivity"
+    tools:context=".RTCRoomActivity"
     tools:ignore="ContentDescription,RtlHardcoded,SpUsage">
 
     <FrameLayout
@@ -50,37 +50,105 @@
             app:layout_constraintTop_toBottomOf="@id/self_video_container" />
     </FrameLayout>
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/white"
-        android:paddingBottom="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent">
+        <ImageView
+            android:id="@+id/screen_share_off"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:src="@drawable/screen_share"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/switch_local_video"
+            app:layout_constraintRight_toLeftOf="@id/hang_up"/>
 
         <ImageView
             android:id="@+id/switch_local_audio"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="16dp"
+            android:layout_weight="1"
             android:src="@drawable/normal_audio" />
-
-        <ImageView
-            android:id="@+id/hang_up"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_gravity="center"
-            android:src="@drawable/hang_up" />
 
         <ImageView
             android:id="@+id/switch_local_video"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="16dp"
+            android:layout_weight="1.5"
             android:src="@drawable/normal_video" />
-    </FrameLayout>
+        <ImageView
+            android:id="@+id/hang_up"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:src="@drawable/hang_up" />
+
+        <ImageView
+            android:id="@+id/chat"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/chat"
+            android:layout_gravity="center_vertical|right"
+            android:layout_weight="1"
+            android:clickable="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/switch_local_video"
+            app:layout_constraintRight_toLeftOf="@id/hang_up" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/chat_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <EditText
+            android:id="@+id/realcaht"
+            android:layout_width="238dp"
+            android:layout_height="wrap_content"
+            android:text="请输入内容" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/send"
+            android:background="@color/grey"
+            android:text="发送"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/videoview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/self_video_container"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_bar" />
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_weight="1.5"
+        app:layout_constraintTop_toBottomOf="@id/title_bar"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/close" />
+
+
 
     <FrameLayout
         android:id="@+id/self_video_container"
@@ -89,8 +157,7 @@
         app:layout_constraintBottom_toTopOf="@id/remote_video_1_container"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/remote_video_0_container"
-        app:layout_constraintTop_toBottomOf="@id/title_bar" />
-
+        app:layout_constraintTop_toBottomOf="@id/videoview"/>
     <TextView
         android:id="@+id/self_video_user_id_tv"
         android:layout_width="wrap_content"
@@ -107,7 +174,7 @@
         app:layout_constraintBottom_toTopOf="@id/remote_video_2_container"
         app:layout_constraintLeft_toRightOf="@id/self_video_container"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_bar" />
+        app:layout_constraintTop_toBottomOf="@id/videoview" />
 
     <TextView
         android:id="@+id/remote_video_0_user_id_tv"
@@ -153,5 +220,14 @@
         android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@id/remote_video_2_container"
         app:layout_constraintRight_toRightOf="@id/remote_video_2_container" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_bar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/remote_video_2_container"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

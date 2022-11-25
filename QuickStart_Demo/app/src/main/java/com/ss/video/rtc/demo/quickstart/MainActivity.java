@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button createroomButton = (Button)this.findViewById(R.id.button2);
-//        Button joinroomButton = (Button)this.findViewById(R.id.button3);
+        Button joinroomButton = (Button)this.findViewById(R.id.button3);
 
         EditText roomId = findViewById(R.id.roomId);
 
@@ -42,10 +42,10 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-//        joinroomButton.setOnClickListener((v)->{
-//            String roomIdContent = roomId.getText().toString();
-//            joinRoom(roomIdContent);
-//        });
+        joinroomButton.setOnClickListener((v)->{
+            String roomIdContent = roomId.getText().toString();
+            joinRoom1(roomIdContent);
+        });
 
     }
 
@@ -62,6 +62,28 @@ public class MainActivity extends AppCompatActivity {
         }
 //        Intent j = new Intent(MainActivity.this, Room.class); here we replace Room with RoomDebug for debugging
         Intent j = new Intent(MainActivity.this, Room.class);
+        j.putExtra(Constants.ROOM_ID_EXTRA, roomId);
+
+        j.putExtra(Constants.USER_ID_EXTRA, usrId);
+
+        //Log.d("tag", "hellohello!!!!!" + usrId);
+
+        startActivity(j);
+    }
+
+    private void joinRoom1(String roomId){
+        if (TextUtils.isEmpty(roomId)){
+            Toast.makeText(this, "Please input your room ID", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!Pattern.matches(Constants.INPUT_REGEX, roomId)){
+            Toast.makeText(this, "Illegal room ID", Toast.LENGTH_SHORT).show();
+            return;
+
+        }
+//        Intent j = new Intent(MainActivity.this, Room.class); here we replace Room with RoomDebug for debugging
+        Intent j = new Intent(MainActivity.this, RTCRoomActivity.class);
         j.putExtra(Constants.ROOM_ID_EXTRA, roomId);
 
         j.putExtra(Constants.USER_ID_EXTRA, usrId);
