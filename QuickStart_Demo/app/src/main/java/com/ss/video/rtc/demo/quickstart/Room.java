@@ -2,11 +2,15 @@ package com.ss.video.rtc.demo.quickstart;
 
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Camera;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.TextureView;
@@ -17,6 +21,8 @@ import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,6 +39,7 @@ import com.ss.bytertc.engine.UserInfo;
 import com.ss.bytertc.engine.VideoCanvas;
 
 import com.ss.bytertc.engine.data.CameraId;
+import com.ss.bytertc.engine.data.EffectBeautyMode;
 import com.ss.bytertc.engine.data.RemoteStreamKey;
 import com.ss.bytertc.engine.data.StreamIndex;
 import com.ss.bytertc.engine.data.VideoFrameInfo;
@@ -63,15 +70,29 @@ public class Room extends AppCompatActivity {
 
     private Button videoButton;
     private Button micButton;
+    private Button chatButton;
+    private Button setButton;
+    private Button setCheck;
+    private Button setCancel;
+
+    private float whiteValue = 0;
+    private float smoothValue = 0;
+
+
+    private SeekBar whiteBar;
+    private SeekBar smoothBar;
 
     //some parameters related to audio/video switch
     private boolean mIsMuteAudio = false;
     private boolean mIsMuteVideo = false;
+    private boolean mIsMuteChat = true;
 
     private RTCVideo mRTCVideo;
     private RTCRoom mRTCRoom;
 
     private CameraId mCameraID = CameraId.CAMERA_ID_FRONT;
+
+    private FrameLayout setBox;
 
 
 
@@ -494,6 +515,19 @@ void setInvisible() {
 
 
         Button btn_LeaveRoom = (Button) findViewById(R.id.btn_leaveroom);
+        setButton = findViewById(R.id.btn_set);
+        setBox = findViewById(R.id.setBox);
+        setBox.setVisibility(View.GONE);
+        setCheck = findViewById(R.id.btn_set_check);
+        setCancel = findViewById(R.id.btn_set_cancel);
+        whiteBar = findViewById(R.id.beautySeekWhite);
+        smoothBar = findViewById(R.id.beautySeekSmooth);
+
+
+
+        setButton.setOnClickListener((v)->makeSet());
+        setCheck.setOnClickListener((v)->checkSet());
+        setCancel.setOnClickListener((v)->cancelSet());
         btn_LeaveRoom.setOnClickListener((v)->{onBackPressed();
         });
 
@@ -501,6 +535,8 @@ void setInvisible() {
 
         String roomId = (String)getIntent().getExtras().get(Constants.ROOM_ID_EXTRA);
         String userId = (String)getIntent().getExtras().get(Constants.USER_ID_EXTRA);
+        
+
         Log.d("tag","hello!!!!!!!!!!!!" + userId);
         initUI(roomId, userId);
         initEngineAndJoinRoom(roomId, userId);
@@ -515,6 +551,57 @@ void setInvisible() {
 
     }
 
+
+    private void makeSet(){
+        setBox.setVisibility(View.VISIBLE);
+    }
+
+    private void checkSet(){
+        RadioGroup rg = (RadioGroup) findViewById(R.id.radioGroup);
+        Log.d("tag", String.valueOf(rg.getCheckedRadioButtonId()));
+        if (rg.getCheckedRadioButtonId()==R.id.radioButton1){
+            if (mCameraID == CameraId.CAMERA_ID_BACK){
+                onSwitchCameraClick();
+            }
+        }
+        else{
+            if (mCameraID == CameraId.CAMERA_ID_FRONT){
+                onSwitchCameraClick();
+            }
+        }
+
+        whiteValue = (float)whiteBar.getProgress()/100;
+        smoothValue = (float)smoothBar.getProgress()/100;
+
+        int r1 = mRTCVideo.setBeautyIntensity(EffectBeautyMode.EFFECT_WHITE_MODE, whiteValue);
+        int r2 = mRTCVideo.setBeautyIntensity(EffectBeautyMode.EFFECT_SMOOTH_MODE, smoothValue);
+        Log.d("tag", String.valueOf(r1));
+        Log.d("tag", String.valueOf(r2));
+//        mRTCVideo.enableEffectBeauty(true);
+
+        setBox.setVisibility(View.GONE);
+    }
+
+//    @SuppressLint("ResourceType")
+    private void cancelSet(){
+        float white;
+        float smooth;
+        setBox.setVisibility(View.GONE);
+        RadioGroup rg = (RadioGroup)findViewById(R.id.radioGroup);
+        if (mCameraID == CameraId.CAMERA_ID_FRONT){
+            rg.check(R.id.radioButton1);
+        }
+        if (mCameraID == CameraId.CAMERA_ID_BACK){
+            rg.check(R.id.radioButton2);
+        }
+
+        white = whiteValue * 100;
+        smooth = smoothValue * 100;
+
+        whiteBar.setProgress((int)white);
+        smoothBar.setProgress((int)smooth);
+//        rg.check(0);
+    }
 //    class UserAdapter extends RecyclerView.Adapter<UserHolder>{
 //        @NonNull
 //        @Override
@@ -559,12 +646,13 @@ void setInvisible() {
     private void initUI(String roomId, String userId){
         micButton = (Button)this.findViewById(R.id.btn_mic);
         videoButton = (Button)this.findViewById(R.id.btn_video);
-
+        chatButton = (Button)this.findViewById(R.id.btn_chat);
         micButton.setOnClickListener((v)-> updateLocalMicStatus());
 
         videoButton.setOnClickListener((v)-> updateLocalVideoStatus());
 
-        findViewById(R.id.btn_switch_camera).setOnClickListener((v)->onSwitchCameraClick());
+        chatButton.setOnClickListener((v)->updateChatStatus());
+//        findViewById(R.id.btn_switch_camera).setOnClickListener((v)->onSwitchCameraClick());
 
         mSelfContainer = findViewById(R.id.usr1_layout);
         mSelfUserId = findViewById(R.id.usr1_id);
@@ -610,6 +698,16 @@ void setInvisible() {
         }
     }
 
+    private void updateChatStatus(){
+        mIsMuteChat = !mIsMuteChat;
+        if (mIsMuteChat){
+            this.findViewById(R.id.voice_chat_demo_main_input_layout).setVisibility(View.GONE);
+        }else{
+            this.findViewById(R.id.voice_chat_demo_main_input_layout).setVisibility(View.VISIBLE);
+        }
+
+
+    }
 
     private void updateLocalVideoStatus(){
         mIsMuteVideo = !mIsMuteVideo;
@@ -629,6 +727,12 @@ void setInvisible() {
 
 //        mUserList.clear();
         setLocalRenderView(userId);
+
+        mRTCVideo.setBeautyIntensity(EffectBeautyMode.EFFECT_WHITE_MODE,0);//美白EFFECT_WHITE_MODE(0)	美白
+        mRTCVideo.setBeautyIntensity(EffectBeautyMode.EFFECT_SMOOTH_MODE,0);
+        mRTCVideo.setBeautyIntensity(EffectBeautyMode.EFFECT_SHARPEN_MODE, 0);
+        mRTCVideo.enableEffectBeauty(true);
+
 
         mRTCVideo.startVideoCapture();
         mRTCVideo.startAudioCapture();
@@ -650,6 +754,7 @@ void setInvisible() {
                 joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN_1, UserInfo.create(userId, ""), roomConfig);
                 break;
         }
+//        joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN_3, UserInfo.create(userId, ""), roomConfig);
         Log.i("tag","initEngineAndJoinRoom:" + joinRoomRes);
 
     }
