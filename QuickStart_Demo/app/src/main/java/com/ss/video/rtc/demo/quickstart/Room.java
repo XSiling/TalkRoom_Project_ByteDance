@@ -38,6 +38,7 @@ import com.ss.bytertc.engine.RTCVideo;
 import com.ss.bytertc.engine.UserInfo;
 import com.ss.bytertc.engine.VideoCanvas;
 
+import com.ss.bytertc.engine.VideoEncoderConfig;
 import com.ss.bytertc.engine.data.CameraId;
 import com.ss.bytertc.engine.data.EffectBeautyMode;
 import com.ss.bytertc.engine.data.RemoteStreamKey;
@@ -93,6 +94,8 @@ public class Room extends AppCompatActivity {
     private CameraId mCameraID = CameraId.CAMERA_ID_FRONT;
 
     private FrameLayout setBox;
+
+    private String userId;
 
 
 
@@ -486,7 +489,7 @@ void setInvisible() {
         for (int i=0; i < mShowUidArray.length; i++){
             if (TextUtils.equals(uid, mShowUidArray[i])){
                 mShowUidArray[i] = null;
-                mUserIdArray[i].setText(null);
+                mUserIdArray[i].setText("Empty");
                 mRemoteContainerArray[i].removeAllViews();
             }
         }
@@ -512,43 +515,42 @@ void setInvisible() {
 //        mUserAdapter = new UserAdapter();
 //        mUserRV.setAdapter(mUserAdapter);
 //        mUserRV.setLayoutManager(new GridLayoutManager(Room.this,1));
+//        Button btn_LeaveRoom = (Button) findViewById(R.id.btn_leaveroom);
+//        setButton = findViewById(R.id.btn_set);
+//        setBox = findViewById(R.id.setBox);
+//        setBox.setVisibility(View.GONE);
+//        setCheck = findViewById(R.id.btn_set_check);
+//        setCancel = findViewById(R.id.btn_set_cancel);
+//        whiteBar = findViewById(R.id.beautySeekWhite);
+//        smoothBar = findViewById(R.id.beautySeekSmooth);
+//
+//
+//
+//        setButton.setOnClickListener((v)->makeSet());
+//        setCheck.setOnClickListener((v)->checkSet());
+//        setCancel.setOnClickListener((v)->cancelSet());
+//        btn_LeaveRoom.setOnClickListener((v)->{onBackPressed();
+//        });
 
 
-        Button btn_LeaveRoom = (Button) findViewById(R.id.btn_leaveroom);
-        setButton = findViewById(R.id.btn_set);
-        setBox = findViewById(R.id.setBox);
-        setBox.setVisibility(View.GONE);
-        setCheck = findViewById(R.id.btn_set_check);
-        setCancel = findViewById(R.id.btn_set_cancel);
-        whiteBar = findViewById(R.id.beautySeekWhite);
-        smoothBar = findViewById(R.id.beautySeekSmooth);
+        Intent intent = getIntent();
+        String roomId = intent.getStringExtra(Constants.ROOM_ID_EXTRA);
+        userId = intent.getStringExtra(Constants.USER_ID_EXTRA);
 
 
-
-        setButton.setOnClickListener((v)->makeSet());
-        setCheck.setOnClickListener((v)->checkSet());
-        setCancel.setOnClickListener((v)->cancelSet());
-        btn_LeaveRoom.setOnClickListener((v)->{onBackPressed();
-        });
-
-
-
-        String roomId = (String)getIntent().getExtras().get(Constants.ROOM_ID_EXTRA);
-        String userId = (String)getIntent().getExtras().get(Constants.USER_ID_EXTRA);
-        
+//        String roomId = getIntent().getStringExtra(Constants.ROOM_ID_EXTRA);
+//        String userId = getIntent().getStringExtra(Constants.USER_ID_EXTRA);
 
         Log.d("tag","hello!!!!!!!!!!!!" + userId);
         initUI(roomId, userId);
         initEngineAndJoinRoom(roomId, userId);
 
-        Intent intent = getIntent();
+//        Intent intent = getIntent();
 
         Boolean sxt = intent.getBooleanExtra("sxt", false);
         Boolean mkf = intent.getBooleanExtra("mkf", false);
 
         initGetMessage(userId);
-
-
     }
 
 
@@ -673,6 +675,23 @@ void setInvisible() {
         mUserIdArray[6] = findViewById(R.id.usr8_id);
 
 
+        Button btn_LeaveRoom = (Button) findViewById(R.id.btn_leaveroom);
+        setButton = findViewById(R.id.btn_set);
+        setBox = findViewById(R.id.setBox);
+        setBox.setVisibility(View.GONE);
+        setCheck = findViewById(R.id.btn_set_check);
+        setCancel = findViewById(R.id.btn_set_cancel);
+        whiteBar = findViewById(R.id.beautySeekWhite);
+        smoothBar = findViewById(R.id.beautySeekSmooth);
+
+
+
+        setButton.setOnClickListener((v)->makeSet());
+        setCheck.setOnClickListener((v)->checkSet());
+        setCancel.setOnClickListener((v)->cancelSet());
+        btn_LeaveRoom.setOnClickListener((v)->{onBackPressed();
+        });
+
         //add one user
         Log.d("e","Here the userId ought to be: " + userId);
     }
@@ -722,8 +741,8 @@ void setInvisible() {
         int joinRoomRes;
         mRTCVideo = RTCVideo.createRTCVideo(getApplicationContext(), Constants.APPID, mIRtcVideoEventHandler, null, null);
 
-//      VideoEncoderConfig videoEncoderConfig = new VideoEncoderConfig(182,180,15,800);
-//      mRTCVideo.setVideoEncoderConfig(videoEncoderConfig);
+        VideoEncoderConfig videoEncoderConfig = new VideoEncoderConfig(182,180,25,1000);
+        mRTCVideo.setVideoEncoderConfig(videoEncoderConfig);
 
 //        mUserList.clear();
         setLocalRenderView(userId);
