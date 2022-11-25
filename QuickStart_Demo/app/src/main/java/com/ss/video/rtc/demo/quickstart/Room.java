@@ -744,14 +744,23 @@ void setInvisible() {
 
         // here for the test!
         switch(userId){
+            case "1":
+                joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN_1, UserInfo.create(userId, ""), roomConfig);
+                break;
             case "2":
                 joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN_2, UserInfo.create(userId, ""), roomConfig);
                 break;
             case "3":
                 joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN_3, UserInfo.create(userId, ""), roomConfig);
                 break;
+            case "4":
+                joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN_4, UserInfo.create(userId, ""), roomConfig);
+                break;
+            case "5":
+                joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN_5, UserInfo.create(userId, ""), roomConfig);
+                break;
             default:
-                joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN_1, UserInfo.create(userId, ""), roomConfig);
+                joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN_6, UserInfo.create(userId, ""), roomConfig);
                 break;
         }
 //        joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN_3, UserInfo.create(userId, ""), roomConfig);
