@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,22 +28,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button createroomButton = (Button)this.findViewById(R.id.button2);
-        Button joinroomButton = (Button)this.findViewById(R.id.button3);
 
         EditText roomId = findViewById(R.id.roomId);
 
         usrId = (String) getIntent().getExtras().get(Constants.USER_ID_EXTRA);
 
+        TextView tv = findViewById(R.id.id_main);
+        tv.setText(usrId);
         createroomButton.setOnClickListener((v)->{
             String roomIdContent = roomId.getText().toString();
             joinRoom(roomIdContent);
 
         });
 
-        joinroomButton.setOnClickListener((v)->{
-            String roomIdContent = roomId.getText().toString();
-            joinRoom(roomIdContent);
-        });
 
     }
 
@@ -67,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(j);
     }
+
+
 
 
     @Override
