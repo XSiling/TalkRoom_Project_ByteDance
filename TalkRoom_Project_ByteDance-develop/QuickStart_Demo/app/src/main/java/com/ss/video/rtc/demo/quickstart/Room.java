@@ -59,9 +59,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Room extends AppCompatActivity {
-//    private RecyclerView mUserRV;
-//    private List<User> mUserList = new ArrayList<>();
-//    private UserAdapter mUserAdapter;
+    private RecyclerView mUserRV;
+    private List<User> mUserList = new ArrayList<>();
+    private UserAdapter mUserAdapter;
 
     private FrameLayout mSelfContainer;
     private TextView mSelfUserId;
@@ -78,6 +78,7 @@ public class Room extends AppCompatActivity {
 
     private float whiteValue = 0;
     private float smoothValue = 0;
+    private boolean share = false;
 
 
     private SeekBar whiteBar;
@@ -211,138 +212,148 @@ void setInvisible() {
     ////////////////////////////////
 
 
-//    private void setWH(int position, int width, int height){
-//        mUserList.get(position).setmWidth(width);
-//        mUserList.get(position).setmHeight(height);
-//    }
-//
-//    private void FreshWidthHeight(){
-//        //不在这个函数里notify change
-//        GridLayoutManager gridLayoutManager = new GridLayoutManager(Room.this, 4);
-//        int totalWidth = this.getWindowManager().getDefaultDisplay().getWidth();
-//        int totalHeight = this.getWindowManager().getDefaultDisplay().getHeight() * 4 / 5;
-//        int userNum = mUserList.size();
-//        switch (userNum){
-//            case 1:
-//                setWH(0, totalWidth, totalHeight);
-//                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//                    @Override
-//                    public int getSpanSize(int position) {
-//                        return 4;
-//                    }
-//                });
-//                break;
-//            case 2:
-//                setWH(0, totalWidth/2, totalHeight);
-//                setWH(1, totalWidth/2, totalHeight);
-//                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//                    @Override
-//                    public int getSpanSize(int position) {
-//                        return 2;
-//                    }
-//                });
-//                break;
-//            case 3:
-//                setWH(0, totalWidth, totalHeight/2);
-//                setWH(1, totalWidth/2, totalHeight/2);
-//                setWH(2, totalWidth/2, totalHeight/2);
-//                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//                    @Override
-//                    public int getSpanSize(int position) {
-//                        switch(position){
-//                            case 0:
-//                                return 4;
-//                            default:
-//                                return 2;
-//                        }
-//                    }
-//                });
-//                break;
-//            case 4:
-//                setWH(0, totalWidth/2, totalHeight/2);
-//                setWH(1, totalWidth/2, totalHeight/2);
-//                setWH(2, totalWidth/2, totalHeight/2);
-//                setWH(3, totalWidth/2, totalHeight/2);
-//                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//                    @Override
-//                    public int getSpanSize(int position) {
-//                        return 2;
-//                    }
-//                });
-//                break;
-//            case 5:
-//                setWH(0, totalWidth, totalHeight/2);
-//                setWH(1, totalWidth/4, totalHeight/2);
-//                setWH(2, totalWidth/4, totalHeight/2);
-//                setWH(3, totalWidth/4, totalHeight/2);
-//                setWH(4, totalWidth/4, totalHeight/2);
-//                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//                    @Override
-//                    public int getSpanSize(int position) {
-//                        switch(position){
-//                            case 0:
-//                                return 4;
-//                            default:
-//                                return 1;
-//                        }
-//                    }
-//                });
-//                break;
-//            case 6:
-//                setWH(0, totalWidth/2, totalHeight/2);
-//                setWH(1, totalWidth/2, totalHeight/2);
-//                setWH(2, totalWidth/4, totalHeight/2);
-//                setWH(3, totalWidth/4, totalHeight/2);
-//                setWH(4, totalWidth/4, totalHeight/2);
-//                setWH(5, totalWidth/4, totalHeight/2);
-//                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//                    @Override
-//                    public int getSpanSize(int position) {
-//                        switch(position){
-//                            case 0:
-//                            case 1:
-//                                return 2;
-//                            default:
-//                                return 1;
-//                        }
-//                    }
-//                });
-//                break;
-//
-//            case 7:
-//                setWH(0, totalWidth/4, totalHeight/2);
-//                setWH(1, totalWidth/4, totalHeight/2);
-//                setWH(2, totalWidth/4, totalHeight/2);
-//                setWH(3, totalWidth/4, totalHeight/2);
-//                setWH(4, totalWidth/4, totalHeight/2);
-//                setWH(5, totalWidth/4, totalHeight/2);
-//                setWH(6, totalWidth/4, totalHeight/2);
-//                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//                    @Override
-//                    public int getSpanSize(int position) {
-//                        return 1;
-//                    }
-//                });
-//                break;
-//            case 8:
-//                setWH(0, totalWidth/4, totalHeight/2);
-//                setWH(1, totalWidth/4, totalHeight/2);
-//                setWH(2, totalWidth/4, totalHeight/2);
-//                setWH(3, totalWidth/4, totalHeight/2);
-//                setWH(4, totalWidth/4, totalHeight/2);
-//                setWH(5, totalWidth/4, totalHeight/2);
-//                setWH(6, totalWidth/4, totalHeight/2);
-//                setWH(7, totalWidth/4, totalHeight/2);
-//                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//                    @Override
-//                    public int getSpanSize(int position) {
-//                        return 1;
-//                    }
-//                });
-//                break;
-//        }
-//        mUserRV.setLayoutManager(gridLayoutManager);
-//    }
+    private void setWH(int position, int width, int height){
+        mUserList.get(position).setmWidth(width);
+        mUserList.get(position).setmHeight(height);
+    }
+
+    private void FreshWidthHeight(boolean share){
+        //不在这个函数里notify change
+        int totalWidth;
+        int totalHeight;
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(Room.this, 4);
+
+        if (share){
+            totalWidth = this.getWindowManager().getDefaultDisplay().getWidth()/2;
+            totalHeight = this.getWindowManager().getDefaultDisplay().getHeight() * 4 / 5;
+        }else{
+            totalWidth = this.getWindowManager().getDefaultDisplay().getWidth();
+            totalHeight = this.getWindowManager().getDefaultDisplay().getHeight() * 4 / 5;
+        }
+
+
+        int userNum = mUserList.size();
+        switch (userNum){
+            case 1:
+                setWH(0, totalWidth, totalHeight);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 4;
+                    }
+                });
+                break;
+            case 2:
+                setWH(0, totalWidth/2, totalHeight);
+                setWH(1, totalWidth/2, totalHeight);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 2;
+                    }
+                });
+                break;
+            case 3:
+                setWH(0, totalWidth, totalHeight/2);
+                setWH(1, totalWidth/2, totalHeight/2);
+                setWH(2, totalWidth/2, totalHeight/2);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        switch(position){
+                            case 0:
+                                return 4;
+                            default:
+                                return 2;
+                        }
+                    }
+                });
+                break;
+            case 4:
+                setWH(0, totalWidth/2, totalHeight/2);
+                setWH(1, totalWidth/2, totalHeight/2);
+                setWH(2, totalWidth/2, totalHeight/2);
+                setWH(3, totalWidth/2, totalHeight/2);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 2;
+                    }
+                });
+                break;
+            case 5:
+                setWH(0, totalWidth, totalHeight/2);
+                setWH(1, totalWidth/4, totalHeight/2);
+                setWH(2, totalWidth/4, totalHeight/2);
+                setWH(3, totalWidth/4, totalHeight/2);
+                setWH(4, totalWidth/4, totalHeight/2);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        switch(position){
+                            case 0:
+                                return 4;
+                            default:
+                                return 1;
+                        }
+                    }
+                });
+                break;
+            case 6:
+                setWH(0, totalWidth/2, totalHeight/2);
+                setWH(1, totalWidth/2, totalHeight/2);
+                setWH(2, totalWidth/4, totalHeight/2);
+                setWH(3, totalWidth/4, totalHeight/2);
+                setWH(4, totalWidth/4, totalHeight/2);
+                setWH(5, totalWidth/4, totalHeight/2);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        switch(position){
+                            case 0:
+                            case 1:
+                                return 2;
+                            default:
+                                return 1;
+                        }
+                    }
+                });
+                break;
+
+            case 7:
+                setWH(0, totalWidth/4, totalHeight/2);
+                setWH(1, totalWidth/4, totalHeight/2);
+                setWH(2, totalWidth/4, totalHeight/2);
+                setWH(3, totalWidth/4, totalHeight/2);
+                setWH(4, totalWidth/4, totalHeight/2);
+                setWH(5, totalWidth/4, totalHeight/2);
+                setWH(6, totalWidth/4, totalHeight/2);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 1;
+                    }
+                });
+                break;
+            case 8:
+                setWH(0, totalWidth/4, totalHeight/2);
+                setWH(1, totalWidth/4, totalHeight/2);
+                setWH(2, totalWidth/4, totalHeight/2);
+                setWH(3, totalWidth/4, totalHeight/2);
+                setWH(4, totalWidth/4, totalHeight/2);
+                setWH(5, totalWidth/4, totalHeight/2);
+                setWH(6, totalWidth/4, totalHeight/2);
+                setWH(7, totalWidth/4, totalHeight/2);
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        return 1;
+                    }
+                });
+                break;
+        }
+        mUserRV.setLayoutManager(gridLayoutManager);
+    }
 
     private RTCRoomEventHandlerAdapter mIRtcRoomEventHandler = new RTCRoomEventHandlerAdapter(){
 
@@ -429,15 +440,15 @@ void setInvisible() {
         });
     }
 
-    private void setRemoteRenderView(String roomId, String uid, FrameLayout container){
+    private void setRemoteRenderView(String roomId, String uid){
         TextureView renderView = new TextureView(this);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-//        mUserList.add(new User(renderView, params, uid));
-//        FreshWidthHeight();
-//        mUserAdapter.notifyDataSetChanged();
-        container.removeAllViews();
-        container.addView(renderView, params);
+        mUserList.add(new User(renderView, params, uid));
+        FreshWidthHeight(share);
+        mUserAdapter.notifyDataSetChanged();
+//        container.removeAllViews();
+//        container.addView(renderView, params);
 
         VideoCanvas videoCanvas = new VideoCanvas();
         videoCanvas.renderView = renderView;
@@ -452,55 +463,55 @@ void setInvisible() {
     private void setRemoteView(String roomId, String uid){
         //如果现在的list里有一个相同的人，把它踢掉
         //提 还是不提 这是一个问题
-//        for(int i=0; i < mUserList.size(); ++i){
-//            if (mUserList.get(i).mUid == uid){
-//                if (i == 0){
-//                    mRTCRoom.leaveRoom();//离开的操作
-//                }
-//                else{
-//                    mUserList.remove(i);
-//                    FreshWidthHeight();
-//                    mUserAdapter.notifyDataSetChanged();
-//                    break;
-//                }
-//            }
-//        }
-
-        //如果没有的话，可以加新用户了
-        int emptyInx = -1;
-        for (int i = 0; i < mShowUidArray.length; i++) {
-            if (TextUtils.isEmpty(mShowUidArray[i]) && emptyInx == -1) {
-                emptyInx = i;
-            } else if (TextUtils.equals(uid, mShowUidArray[i])) {
-                return;
+        for(int i=0; i < mUserList.size(); ++i){
+            if (mUserList.get(i).mUid == uid){
+                if (i == 0){
+                    mRTCRoom.leaveRoom();//离开的操作
+                }
+                else{
+                    mUserList.remove(i);
+                    FreshWidthHeight(share);
+                    mUserAdapter.notifyDataSetChanged();
+                    break;
+                }
             }
         }
-        if (emptyInx < 0) {
-            return;
-        }
-        mShowUidArray[emptyInx] = uid;
-        mUserIdArray[emptyInx].setText(uid);
-        setRemoteRenderView(roomId, uid, mRemoteContainerArray[emptyInx]);
-        //setRemoteRenderView(roomId, uid);
+
+        //如果没有的话，可以加新用户了
+//        int emptyInx = -1;
+//        for (int i = 0; i < mShowUidArray.length; i++) {
+//            if (TextUtils.isEmpty(mShowUidArray[i]) && emptyInx == -1) {
+//                emptyInx = i;
+//            } else if (TextUtils.equals(uid, mShowUidArray[i])) {
+//                return;
+//            }
+//        }
+//        if (emptyInx < 0) {
+//            return;
+//        }
+//        mShowUidArray[emptyInx] = uid;
+//        mUserIdArray[emptyInx].setText(uid);
+//        setRemoteRenderView(roomId, uid, mRemoteContainerArray[emptyInx]);
+        setRemoteRenderView(roomId, uid);
     }
 
 
     private void removeRemoteView(String uid){
-        for (int i=0; i < mShowUidArray.length; i++){
-            if (TextUtils.equals(uid, mShowUidArray[i])){
-                mShowUidArray[i] = null;
-                mUserIdArray[i].setText("Empty");
-                mRemoteContainerArray[i].removeAllViews();
-            }
-        }
-//        for (int i=0; i < mUserList.size(); ++i){
-//            if (Objects.equals(mUserList.get(i).mUid, uid)){
-//                mUserList.remove(i);
-//                FreshWidthHeight();
-//                mUserAdapter.notifyDataSetChanged();
-//                break;
+//        for (int i=0; i < mShowUidArray.length; i++){
+//            if (TextUtils.equals(uid, mShowUidArray[i])){
+//                mShowUidArray[i] = null;
+//                mUserIdArray[i].setText("Empty");
+//                mRemoteContainerArray[i].removeAllViews();
 //            }
 //        }
+        for (int i=0; i < mUserList.size(); ++i){
+            if (Objects.equals(mUserList.get(i).mUid, uid)){
+                mUserList.remove(i);
+                FreshWidthHeight(share);
+                mUserAdapter.notifyDataSetChanged();
+                break;
+            }
+        }
     }
 
 
@@ -511,44 +522,18 @@ void setInvisible() {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.debug_room);
 
-//        mUserRV = findViewById(R.id.user_rv);
-//        mUserAdapter = new UserAdapter();
-//        mUserRV.setAdapter(mUserAdapter);
-//        mUserRV.setLayoutManager(new GridLayoutManager(Room.this,1));
-//        Button btn_LeaveRoom = (Button) findViewById(R.id.btn_leaveroom);
-//        setButton = findViewById(R.id.btn_set);
-//        setBox = findViewById(R.id.setBox);
-//        setBox.setVisibility(View.GONE);
-//        setCheck = findViewById(R.id.btn_set_check);
-//        setCancel = findViewById(R.id.btn_set_cancel);
-//        whiteBar = findViewById(R.id.beautySeekWhite);
-//        smoothBar = findViewById(R.id.beautySeekSmooth);
-//
-//
-//
-//        setButton.setOnClickListener((v)->makeSet());
-//        setCheck.setOnClickListener((v)->checkSet());
-//        setCancel.setOnClickListener((v)->cancelSet());
-//        btn_LeaveRoom.setOnClickListener((v)->{onBackPressed();
-//        });
-
+        mUserRV = findViewById(R.id.user_rv);
+        mUserAdapter = new UserAdapter();
+        mUserRV.setAdapter(mUserAdapter);
+        mUserRV.setLayoutManager(new GridLayoutManager(Room.this,1));
 
         Intent intent = getIntent();
         String roomId = intent.getStringExtra(Constants.ROOM_ID_EXTRA);
         userId = intent.getStringExtra(Constants.USER_ID_EXTRA);
 
-
-//        String roomId = getIntent().getStringExtra(Constants.ROOM_ID_EXTRA);
-//        String userId = getIntent().getStringExtra(Constants.USER_ID_EXTRA);
-
         Log.d("tag","hello!!!!!!!!!!!!" + userId);
         initUI(roomId, userId);
         initEngineAndJoinRoom(roomId, userId);
-
-//        Intent intent = getIntent();
-
-        Boolean sxt = intent.getBooleanExtra("sxt", false);
-        Boolean mkf = intent.getBooleanExtra("mkf", false);
 
         initGetMessage(userId);
     }
@@ -604,35 +589,46 @@ void setInvisible() {
         smoothBar.setProgress((int)smooth);
 //        rg.check(0);
     }
-//    class UserAdapter extends RecyclerView.Adapter<UserHolder>{
-//        @NonNull
-//        @Override
-//        public UserHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
-//            View view = View.inflate(Room.this, R.layout.item_user, null);
-//            UserHolder myUserHolder = new UserHolder(view);
-//            return myUserHolder;
-//        }
-//
-//        @Override
-//        public void onBindViewHolder(@NonNull UserHolder holder, int position){
-//            User user = mUserList.get(position);
-////            Log.i("tag", "the width is:" + String.valueOf(holder.avatar_layout.getWidth()));
-////            Log.i("tag", "the height is :" + String.valueOf(holder.avatar_layout.getHeight()));
-////            Log.i("tag","the width of mView(video) is:" + String.valueOf(user.mView.getWidth()));
-////            Log.i("tag","the width of mView(video) is:" + String.valueOf(user.mView.getHeight()));
-//
-//            holder.avatar_layout.removeView(user.mView);
-//            holder.avatar_layout.removeAllViews();
-//            holder.avatar_layout.addView(user.mView, user.mWidth, user.mHeight);
-//            holder.id_layout.setText(user.mUid);
-//        }
-//
-//        @Override
-//        public int getItemCount(){
-//            return mUserList.size();
-//        }
-//
-//    }
+    class UserAdapter extends RecyclerView.Adapter<UserHolder>{
+        @NonNull
+        @Override
+        public UserHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+            View view = View.inflate(Room.this, R.layout.item_user, null);
+            UserHolder myUserHolder = new UserHolder(view);
+            return myUserHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull UserHolder holder, int position){
+            User user = mUserList.get(position);
+//            Log.i("tag", "the width is:" + String.valueOf(holder.avatar_layout.getWidth()));
+//            Log.i("tag", "the height is :" + String.valueOf(holder.avatar_layout.getHeight()));
+//            Log.i("tag","the width of mView(video) is:" + String.valueOf(user.mView.getWidth()));
+//            Log.i("tag","the width of mView(video) is:" + String.valueOf(user.mView.getHeight()));
+            Log.d("tag","0");
+            holder.avatar_layout.removeView(user.mView);
+            Log.d("tag","1");
+            holder.avatar_layout.removeAllViews();
+            Log.d("tag","2");
+
+            if ((FrameLayout)user.mView.getParent()!=null){
+                Log.d("tag","here");
+                ((FrameLayout)user.mView.getParent()).removeView(user.mView);
+            }
+
+
+
+            holder.avatar_layout.addView(user.mView, user.mWidth, user.mHeight);
+            Log.d("tag","3");
+            holder.id_layout.setText(user.mUid);
+        }
+
+        @Override
+        public int getItemCount(){
+            return mUserList.size();
+        }
+
+    }
 
     class UserHolder extends RecyclerView.ViewHolder{
         FrameLayout avatar_layout;
@@ -656,23 +652,23 @@ void setInvisible() {
         chatButton.setOnClickListener((v)->updateChatStatus());
 //        findViewById(R.id.btn_switch_camera).setOnClickListener((v)->onSwitchCameraClick());
 
-        mSelfContainer = findViewById(R.id.usr1_layout);
-        mSelfUserId = findViewById(R.id.usr1_id);
-        mRemoteContainerArray[0] = findViewById(R.id.usr2_layout);
-        mRemoteContainerArray[1] = findViewById(R.id.usr3_layout);
-        mRemoteContainerArray[2] = findViewById(R.id.usr4_layout);
-        mRemoteContainerArray[3] = findViewById(R.id.usr5_layout);
-        mRemoteContainerArray[4] = findViewById(R.id.usr6_layout);
-        mRemoteContainerArray[5] = findViewById(R.id.usr7_layout);
-        mRemoteContainerArray[6] = findViewById(R.id.usr8_layout);
-
-        mUserIdArray[0] = findViewById(R.id.usr2_id);
-        mUserIdArray[1] = findViewById(R.id.usr3_id);
-        mUserIdArray[2] = findViewById(R.id.usr4_id);
-        mUserIdArray[3] = findViewById(R.id.usr5_id);
-        mUserIdArray[4] = findViewById(R.id.usr6_id);
-        mUserIdArray[5] = findViewById(R.id.usr7_id);
-        mUserIdArray[6] = findViewById(R.id.usr8_id);
+//        mSelfContainer = findViewById(R.id.usr1_layout);
+//        mSelfUserId = findViewById(R.id.usr1_id);
+//        mRemoteContainerArray[0] = findViewById(R.id.usr2_layout);
+//        mRemoteContainerArray[1] = findViewById(R.id.usr3_layout);
+//        mRemoteContainerArray[2] = findViewById(R.id.usr4_layout);
+//        mRemoteContainerArray[3] = findViewById(R.id.usr5_layout);
+//        mRemoteContainerArray[4] = findViewById(R.id.usr6_layout);
+//        mRemoteContainerArray[5] = findViewById(R.id.usr7_layout);
+//        mRemoteContainerArray[6] = findViewById(R.id.usr8_layout);
+//
+//        mUserIdArray[0] = findViewById(R.id.usr2_id);
+//        mUserIdArray[1] = findViewById(R.id.usr3_id);
+//        mUserIdArray[2] = findViewById(R.id.usr4_id);
+//        mUserIdArray[3] = findViewById(R.id.usr5_id);
+//        mUserIdArray[4] = findViewById(R.id.usr6_id);
+//        mUserIdArray[5] = findViewById(R.id.usr7_id);
+//        mUserIdArray[6] = findViewById(R.id.usr8_id);
 
 
         Button btn_LeaveRoom = (Button) findViewById(R.id.btn_leaveroom);
@@ -793,13 +789,13 @@ void setInvisible() {
         TextureView renderView = new TextureView(this);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         //FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(500,500);
-//        mUserList.add(new User(renderView, params, uid));
-//        FreshWidthHeight();
-//        mUserAdapter.notifyDataSetChanged();
+        mUserList.add(new User(renderView, params, uid));
+        FreshWidthHeight(share);
+        mUserAdapter.notifyDataSetChanged();
 
-        mSelfContainer.removeAllViews();
-        mSelfContainer.addView(renderView, params);
-        mSelfUserId.setText(uid);
+//        mSelfContainer.removeAllViews();
+//        mSelfContainer.addView(renderView, params);
+//        mSelfUserId.setText(uid);
 
         videoCanvas.renderView = renderView;
         videoCanvas.uid = uid;
