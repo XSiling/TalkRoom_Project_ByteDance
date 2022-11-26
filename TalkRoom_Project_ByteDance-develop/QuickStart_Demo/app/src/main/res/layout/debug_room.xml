@@ -285,13 +285,21 @@
 <!--            </LinearLayout>-->
 
             <FrameLayout
+                android:id = "@+id/shareScreenView"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:visibility="gone"
-                android:layout_height="match_parent">
+                android:background="@color/blue"
+                android:layout_height="match_parent"
+                >
 
             </FrameLayout>
-
+            >
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="2dp"
+                android:layout_height="32dp"
+                android:layout_weight="0.05"
+                android:src="@drawable/close" />
         </LinearLayout>
 
 
@@ -344,6 +352,21 @@
                     android:layout_gravity="center"
                     android:text="Chat" />
             </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btn_share_screen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Share Screen" />
+            </FrameLayout>
+
 
             <FrameLayout
                 android:layout_width="0dp"

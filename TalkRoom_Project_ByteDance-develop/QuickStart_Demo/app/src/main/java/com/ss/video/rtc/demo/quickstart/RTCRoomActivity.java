@@ -54,6 +54,7 @@ import com.ss.bytertc.engine.type.RemoteVideoStateChangeReason;
 import com.ss.bytertc.engine.type.StreamRemoveReason;
 import com.ss.bytertc.engine.type.VideoDeviceType;
 import com.ss.rtc.demo.quickstart.R;
+import com.ss.video.rtc.demo.quickstart.Constants;
 import com.ss.video.rtc.demo.quickstart.RTCRoomEventHandlerAdapter;
 import com.ss.video.rtc.demo.quickstart.RecycleAdapterDome;
 
@@ -318,30 +319,8 @@ public class RTCRoomActivity extends AppCompatActivity {
                 mclose.setVisibility(View.INVISIBLE);
             }
         });
-//        mSelfContainer.setOnClickListener(new DoubleClickListener() {
-//            @Override
-//            public void onDoubleClick(View v) {
-//                Intent i=new Intent(getApplicationContext(), Localvideo.class);
-//                startActivity(i);
-//            }
-//        });
     }
 
-    public abstract class DoubleClickListener implements View.OnClickListener {
-        private static final long DOUBLE_TIME = 1000;
-        private long lastClickTime = 0;
-
-        @Override
-        public void onClick(View v) {
-            long currentTimeMillis = System.currentTimeMillis();
-            if (currentTimeMillis - lastClickTime < DOUBLE_TIME) {
-                onDoubleClick(v);
-            }
-            lastClickTime = currentTimeMillis;
-        }
-
-        public abstract void onDoubleClick(View v);
-    }
 
     private void initEngineAndJoinRoom(String roomId, String userId) {
         // 创建引擎
@@ -351,7 +330,6 @@ public class RTCRoomActivity extends AppCompatActivity {
         mRTCVideo.setVideoEncoderConfig(videoEncoderConfig);
         setLocalRenderView(userId);
         // 开启本地视频采集
-        int joinRoomRes;
         mRTCVideo.startVideoCapture();
         // 开启本地音频采集
         mRTCVideo.startAudioCapture();
@@ -360,9 +338,8 @@ public class RTCRoomActivity extends AppCompatActivity {
         mRTCRoom.setRTCRoomEventHandler(mIRtcRoomEventHandler);
         RTCRoomConfig roomConfig = new RTCRoomConfig(ChannelProfile.CHANNEL_PROFILE_COMMUNICATION,
                 true, true, true);
-//        int joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN_1,
-//                UserInfo.create(userId, ""), roomConfig);
-        // here for the test!
+
+        int joinRoomRes;
         switch(userId){
             case "1":
                 joinRoomRes = mRTCRoom.joinRoom(Constants.TOKEN_1, UserInfo.create(userId, ""), roomConfig);
@@ -384,9 +361,6 @@ public class RTCRoomActivity extends AppCompatActivity {
                 break;
         }
 
-
-
-        Log.i("TAG", "initEngineAndJoinRoom: " + joinRoomRes);
         requestForScreenSharing();
     }
 
@@ -415,7 +389,9 @@ public class RTCRoomActivity extends AppCompatActivity {
                         startScreenShare(data);
                         mRTCRoom.publishScreen(MediaStreamType.RTC_MEDIA_STREAM_TYPE_BOTH);
                         mclose.setVisibility(View.VISIBLE);
-                        mRTCVideo.setVideoSourceType(StreamIndex.STREAM_INDEX_SCREEN, VideoSourceType.VIDEO_SOURCE_TYPE_INTERNAL);
+                        mRTCVideo.setVideoSourceType(
+                                StreamIndex.STREAM_INDEX_SCREEN,
+                                VideoSourceType.VIDEO_SOURCE_TYPE_INTERNAL);
                     }
                 });
 

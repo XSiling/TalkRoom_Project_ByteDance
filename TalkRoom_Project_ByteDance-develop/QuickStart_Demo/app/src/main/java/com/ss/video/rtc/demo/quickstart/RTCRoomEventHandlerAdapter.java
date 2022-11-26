@@ -155,7 +155,4 @@ public abstract class RTCRoomEventHandlerAdapter extends IRTCRoomEventHandler{
     public void onAudioStreamBanned(String uid, boolean banned) {
 
     }
-
-
-
 }

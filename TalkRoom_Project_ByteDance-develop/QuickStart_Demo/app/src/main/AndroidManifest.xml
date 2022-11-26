@@ -29,8 +29,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.ss.video.rtc.demo.quickstart.LoginActivity"></activity>
         <activity android:name='com.ss.video.rtc.demo.quickstart.MainActivity'></activity>
+        <activity android:name='com.ss.video.rtc.demo.quickstart.RTCRoomActivity'></activity>
         <activity android:name='com.ss.video.rtc.demo.quickstart.Room'
             android:screenOrientation="landscape"></activity>
     </application>
