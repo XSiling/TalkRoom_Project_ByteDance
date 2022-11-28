@@ -18,6 +18,7 @@ public class User {
         this.mHeight = 500;
     }
 
+    public void setmUid(String newUid) {this.mUid = newUid;}
     public void setmWidth(int width){
         this.mWidth = width;
     }

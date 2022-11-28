@@ -708,8 +708,13 @@ void setInvisible() {
         mIsMuteAudio = !mIsMuteAudio;
         if (mIsMuteAudio){
             mRTCRoom.unpublishStream(MediaStreamType.RTC_MEDIA_STREAM_TYPE_AUDIO);
+            mUserList.get(0).setmUid(userId + "（静音中）");
+            mUserAdapter.notifyDataSetChanged();
         }else{
             mRTCRoom.publishStream(MediaStreamType.RTC_MEDIA_STREAM_TYPE_VIDEO);
+            mUserList.get(0).setmUid(userId);
+            mUserAdapter.notifyDataSetChanged();
+
         }
     }
 
@@ -720,16 +725,17 @@ void setInvisible() {
         }else{
             this.findViewById(R.id.voice_chat_demo_main_input_layout).setVisibility(View.VISIBLE);
         }
-
-
     }
 
     private void updateLocalVideoStatus(){
         mIsMuteVideo = !mIsMuteVideo;
         if(mIsMuteVideo){
             mRTCVideo.stopVideoCapture();
+
         }else{
             mRTCVideo.startVideoCapture();
+
+
         }
     }
 
