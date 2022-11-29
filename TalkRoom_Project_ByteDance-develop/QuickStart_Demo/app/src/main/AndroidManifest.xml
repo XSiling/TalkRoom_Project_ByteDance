@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ss.rtc.demo.quickstart">
 
-    <!--    MODIFY_AUDIO_SETTINGS、BLUETOOTH 权限对于音频的路由是必须的。没有BLUETOOTH权限会导致蓝牙耳机连接时，声音从外放播放而不是蓝牙耳机-->
+    <!-- MODIFY_AUDIO_SETTINGS、BLUETOOTH 权限对于音频的路由是必须的。没有BLUETOOTH权限会导致蓝牙耳机连接时，声音从外放播放而不是蓝牙耳机 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -30,9 +32,20 @@
         </activity>
 
         <activity android:name='com.ss.video.rtc.demo.quickstart.MainActivity'></activity>
-        <activity android:name='com.ss.video.rtc.demo.quickstart.RTCRoomActivity'></activity>
+        <activity android:name='com.ss.video.rtc.demo.quickstart.RTCRoomActivity'
+            android:launchMode="singleTop"
+            ></activity>
         <activity android:name='com.ss.video.rtc.demo.quickstart.Room'
+            android:launchMode="singleTop"
             android:screenOrientation="landscape"></activity>
+
+
+        <service
+            android:name="org.webrtc.RXScreenCaptureService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="mediaProjection" />
+
     </application>
 
 </manifest>
