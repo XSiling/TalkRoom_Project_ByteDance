@@ -7,17 +7,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.ss.bytertc.engine.RTCEngine;
@@ -113,7 +110,4 @@ public class LogIn extends AppCompatActivity {
         Log.d("tag","hello!!!!!!!!!!!" + Constants.USER_ID_EXTRA);
         startActivity(i);
     }
-
-
-
 }

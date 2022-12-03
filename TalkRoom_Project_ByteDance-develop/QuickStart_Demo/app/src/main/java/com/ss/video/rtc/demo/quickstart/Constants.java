@@ -4,13 +4,10 @@ package com.ss.video.rtc.demo.quickstart;
  * VolcEngineRTC 常量定义
  */
 public class Constants {
-
     //APPID 使用SDK前需要为自己的应用申请一个AppId，详情参见{https://www.volcengine.com/docs/6348/69865}
     public static final String APPID = "6365ea3c10a4d2015a1e07ab";
-
     //TOKEN 加入房间的时候需要使用token完成鉴权，详情参见{https://www.volcengine.com/docs/6348/70121}
     public static final String TOKEN_1 = "0016365ea3c10a4d2015a1e07abOwCQnCABLIiAY6zCiWMEADEyMzQBADEGAAAArMKJYwEArMKJYwIArMKJYwMArMKJYwQArMKJYwUArMKJYyAATpdSh563hPI9c5xJVZUFsixIWwS2d+ygE7DEVArUIVM=";
-
 
     public static final String TOKEN_2 = "0016365ea3c10a4d2015a1e07abOwDA1O4BQoiAY8LCiWMEADEyMzQBADIGAAAAwsKJYwEAwsKJYwIAwsKJYwMAwsKJYwQAwsKJYwUAwsKJYyAACTmD/54HxWbt4apB3MkNsFJsjcAhy+zyTkSuvB8KRXs=";
 

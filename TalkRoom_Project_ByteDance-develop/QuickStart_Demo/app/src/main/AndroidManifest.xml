@@ -32,13 +32,9 @@
         </activity>
 
         <activity android:name='com.ss.video.rtc.demo.quickstart.MainActivity'></activity>
-        <activity android:name='com.ss.video.rtc.demo.quickstart.RTCRoomActivity'
-            android:launchMode="singleTop"
-            ></activity>
         <activity android:name='com.ss.video.rtc.demo.quickstart.Room'
             android:launchMode="singleTop"
             android:screenOrientation="landscape"></activity>
-
 
         <service
             android:name="org.webrtc.RXScreenCaptureService"
