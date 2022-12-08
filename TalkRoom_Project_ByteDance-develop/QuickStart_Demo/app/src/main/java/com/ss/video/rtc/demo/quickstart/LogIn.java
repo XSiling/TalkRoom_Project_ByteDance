@@ -7,17 +7,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.ss.bytertc.engine.RTCEngine;
@@ -34,13 +31,11 @@ public class LogIn extends AppCompatActivity {
     private TextView version;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in);
 
         String SDKVersion = RTCEngine.getSdkVersion();
 
-        //Log.d("tag","i'm requesting permissions!!!!!!!!!!");
         LottieView = findViewById(R.id.loading_view);
         imageView = findViewById(R.id.imageView);
         usrName = findViewById(R.id.usrName);
@@ -48,13 +43,9 @@ public class LogIn extends AppCompatActivity {
         button = findViewById(R.id.button);
         version = findViewById(R.id.version_tv1);
 
-
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO},
                 1000);
-
-
-
 
         button.setOnClickListener((v)->{
             String usrInputContent = usrName.getText().toString();
@@ -84,10 +75,7 @@ public class LogIn extends AppCompatActivity {
                 button.setVisibility(View.VISIBLE);
                 version.setVisibility(View.VISIBLE);
 
-
                 LottieView.setVisibility(View.GONE);
-
-
             }
 
             @Override
@@ -100,9 +88,6 @@ public class LogIn extends AppCompatActivity {
 
             }
         });
-
-
-
     }
     /*
     在这里进行LogIn的检测，可能会有一些和数据库的连接或者其他的，
@@ -125,7 +110,4 @@ public class LogIn extends AppCompatActivity {
         Log.d("tag","hello!!!!!!!!!!!" + Constants.USER_ID_EXTRA);
         startActivity(i);
     }
-
-
-
 }
