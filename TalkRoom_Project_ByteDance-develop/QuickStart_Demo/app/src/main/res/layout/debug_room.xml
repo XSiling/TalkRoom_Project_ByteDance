@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/grey"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <LinearLayout
@@ -285,16 +285,28 @@
 <!--            </LinearLayout>-->
 
             <FrameLayout
+                android:id = "@+id/shareScreenView"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:visibility="gone"
-                android:layout_height="match_parent">
+                android:background="@color/blue"
+                android:layout_height="match_parent"
+                >
 
             </FrameLayout>
-
+            >
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="0"
+                android:src="@drawable/close" />
         </LinearLayout>
 
-
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2">
+        </Space>
 
 
 
@@ -302,8 +314,8 @@
             android:id="@+id/hint"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/grey"
+            android:layout_weight="0.6"
+            android:background="@color/white"
             android:orientation="horizontal">
 
             <FrameLayout
@@ -312,20 +324,28 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
-                <Button
+                <ImageButton
                     android:id="@+id/btn_mic"
-                    android:layout_width="wrap_content"
+                    android:background="#00FF0000"
+                    android:src="@drawable/pic_mic"
+                    android:scaleType="fitCenter"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="MIC" />
+                    android:layout_width="wrap_content"/>
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:text="MIC" />-->
             </FrameLayout>
 
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
-                <Button
+                <ImageButton
                     android:id="@+id/btn_leaveroom"
+                    android:background="#00FF0000"
+                    android:src="@drawable/pic_leave"
+                    android:scaleType="fitCenter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -337,20 +357,44 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
-                <Button
+                <ImageButton
                     android:id="@+id/btn_chat"
+                    android:background="#00FF0000"
+                    android:src="@drawable/pic_chat"
+                    android:scaleType="fitCenter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Chat" />
             </FrameLayout>
 
+
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
-                <Button
+
+                <ImageButton
+                    android:id="@+id/btn_share_screen"
+                    android:background="#00FF0000"
+                    android:src="@drawable/pic_share"
+                    android:scaleType="fitCenter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Share Screen" />
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <ImageButton
                     android:id="@+id/btn_video"
+                    android:background="#00FF0000"
+                    android:src="@drawable/pic_video"
+                    android:scaleType="fitCenter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -373,8 +417,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
-                <Button
+                <ImageButton
                     android:id="@+id/btn_set"
+                    android:background="#00FF0000"
+                    android:src="@drawable/pic_set"
+                    android:scaleType="fitCenter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -411,7 +458,11 @@
 
 
         </LinearLayout>
-
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2">
+        </Space>
 
         <!--   输入框 + 发送   -->
         <FrameLayout
@@ -541,6 +592,7 @@
 
                     <RadioButton
                         android:id="@+id/radioButton1"
+                        android:shadowColor="@color/blue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -548,6 +600,7 @@
 
                     <RadioButton
                         android:id="@+id/radioButton2"
+                        android:shadowColor="@color/blue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
