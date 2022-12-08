@@ -24,6 +24,7 @@ import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
@@ -86,13 +87,13 @@ public class Room extends AppCompatActivity {
     private final TextView[] mUserIdArray = new TextView[7];
     private final String[] mShowUidArray = new String[7];
 
-    private Button videoButton;
-    private Button micButton;
-    private Button chatButton;
-    private Button setButton;
+    private ImageButton videoButton;
+    private ImageButton micButton;
+    private ImageButton chatButton;
+    private ImageButton setButton;
     private Button setCheck;
     private Button setCancel;
-    private Button shareScreenBtn;
+    private ImageButton shareScreenBtn;
 
     private float whiteValue = 0;
     private float smoothValue = 0;
@@ -443,6 +444,8 @@ void setInvisible() {
         public void onFirstRemoteVideoFrameDecoded(RemoteStreamKey remoteStreamKey, VideoFrameInfo frameInfo) {
             super.onFirstRemoteVideoFrameDecoded(remoteStreamKey, frameInfo);
             Log.d("IRTCVideoEventHandler", "onFirstRemoteVideoFrame: " + remoteStreamKey.toString());
+//            Log.d("tag", "hello, the type is :"+String.valueOf(remoteStreamKey.getStreamIndex()));
+//            if (remoteStreamKey.getStreamIndex() == )
             runOnUiThread(() -> setRemoteView(remoteStreamKey.getRoomId(), remoteStreamKey.getUserId()));
         }
 
@@ -495,6 +498,13 @@ void setInvisible() {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
 
+        for(int i=0;i<mUserList.size();++i){
+            if (mUserList.get(i).mUid.equals(uid))
+            {
+                Log.d("tag","an user already in");
+                return;
+            }
+        }
         mUserList.add(new User(renderView, params, uid));
         FreshWidthHeight(share);
         mUserAdapter.notifyDataSetChanged();
@@ -707,26 +717,26 @@ void setInvisible() {
     }
 
     private void initUI(String roomId, String userId){
-        micButton = (Button)this.findViewById(R.id.btn_mic);
-        videoButton = (Button)this.findViewById(R.id.btn_video);
-        chatButton = (Button)this.findViewById(R.id.btn_chat);
+        micButton = (ImageButton)this.findViewById(R.id.btn_mic);
+        videoButton = (ImageButton)this.findViewById(R.id.btn_video);
+        chatButton = (ImageButton)this.findViewById(R.id.btn_chat);
         shareScreenContainer = findViewById(R.id.shareScreenView);
         shareScreenBtn = findViewById(R.id.btn_share_screen);
 
         mclose=findViewById(R.id.close);
         mclose.setVisibility(View.INVISIBLE);
 
-        mclose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(share) {
-                    share = false;
-                    mRTCVideo.stopScreenCapture();
-                  //  shareScreenContainer.setVisibility(View.INVISIBLE);
-                    mclose.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
+//        mclose.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(share) {
+//                    share = false;
+//                    mRTCVideo.stopScreenCapture();
+//                  //  shareScreenContainer.setVisibility(View.INVISIBLE);
+//                    mclose.setVisibility(View.INVISIBLE);
+//                }
+//            }
+//        });
 
 
         micButton.setOnClickListener((v)-> updateLocalMicStatus());
@@ -755,7 +765,7 @@ void setInvisible() {
 //        mUserIdArray[6] = findViewById(R.id.usr8_id);
 
 
-        Button btn_LeaveRoom = (Button) findViewById(R.id.btn_leaveroom);
+        ImageButton btn_LeaveRoom = (ImageButton) findViewById(R.id.btn_leaveroom);
         setButton = findViewById(R.id.btn_set);
         setBox = findViewById(R.id.setBox);
         setBox.setVisibility(View.GONE);
@@ -787,8 +797,13 @@ void setInvisible() {
         mIsMuteAudio = !mIsMuteAudio;
         if (mIsMuteAudio){
             mRTCRoom.unpublishStream(MediaStreamType.RTC_MEDIA_STREAM_TYPE_AUDIO);
+            mUserList.get(0).setmUid(userId + "（静音中）");
+            mUserAdapter.notifyDataSetChanged();
         }else{
             mRTCRoom.publishStream(MediaStreamType.RTC_MEDIA_STREAM_TYPE_VIDEO);
+            mUserList.get(0).setmUid(userId);
+            mUserAdapter.notifyDataSetChanged();
+
         }
     }
 
@@ -805,8 +820,11 @@ void setInvisible() {
         mIsMuteVideo = !mIsMuteVideo;
         if(mIsMuteVideo){
             mRTCVideo.stopVideoCapture();
+
         }else{
             mRTCVideo.startVideoCapture();
+
+
         }
     }
 
@@ -869,15 +887,25 @@ void setInvisible() {
                 shareScreenBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        share = true;
-                        startScreenShare(data);
-                        Log.i("Hello","L859");
-                        mRTCRoom.publishScreen(MediaStreamType.RTC_MEDIA_STREAM_TYPE_BOTH);
-                        Log.i("Hello","L961");
-                        mclose.setVisibility(View.VISIBLE);
-                        mRTCVideo.setVideoSourceType(
-                                StreamIndex.STREAM_INDEX_SCREEN,
-                                VideoSourceType.VIDEO_SOURCE_TYPE_INTERNAL);
+                        if (share) {
+                            //关闭分享
+                            share = false;
+//                            shareScreenBtn.setText("Screen Share");
+                            mRTCVideo.stopScreenCapture();
+                        }else{
+                            share = true;
+                            startScreenShare(data);
+                            Log.i("Hello","L859");
+                            mRTCRoom.publishScreen(MediaStreamType.RTC_MEDIA_STREAM_TYPE_BOTH);
+                            Log.i("Hello","L961");
+//                            shareScreenBtn.setText("Stop Sharing");
+//                            mclose.setVisibility(View.VISIBLE);
+                            mRTCVideo.setVideoSourceType(
+                                    StreamIndex.STREAM_INDEX_SCREEN,
+                                    VideoSourceType.VIDEO_SOURCE_TYPE_INTERNAL);
+                        }
+
+
                     }
                 });
 
