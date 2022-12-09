@@ -177,8 +177,7 @@ public class Room extends AppCompatActivity {
 
         mVCChatAdapter = new VCChatAdapter();
         mVCChatRv = (RecyclerView) findViewById(R.id.voice_chat_demo_main_chat_rv);
-        mVCChatRv.setLayoutManager(new LinearLayoutManager(
-                Room.this, RecyclerView.VERTICAL, false));
+        mVCChatRv.setLayoutManager(new LinearLayoutManager(Room.this, RecyclerView.VERTICAL, false));
         mVCChatRv.setAdapter(mVCChatAdapter);
         cnt = 10;
 
@@ -442,9 +441,7 @@ public class Room extends AppCompatActivity {
 
     private void setRemoteRenderView(String roomId, String uid) {
         TextureView renderView = new TextureView(this);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
         for (int i = 0; i < mUserList.size(); ++i) {
             if (mUserList.get(i).mUid.equals(uid)) {
@@ -684,14 +681,10 @@ public class Room extends AppCompatActivity {
         mIfHiddenToolBar = !mIfHiddenToolBar;
         if (mIfHiddenToolBar) {
             runOnUiThread(() -> {
-                removeRemoteView(userId);
-                setLocalRenderView(userId);
                 findViewById(R.id.toolbar).setVisibility(View.GONE);
             });
         } else {
             runOnUiThread(() -> {
-                removeRemoteView(userId);
-                setLocalRenderView(userId);
                 findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
             });
         }
@@ -700,9 +693,13 @@ public class Room extends AppCompatActivity {
     private void updateChatStatus() {
         mIsMuteChat = !mIsMuteChat;
         if (mIsMuteChat) {
-            this.findViewById(R.id.voice_chat_demo_main_input_layout).setVisibility(View.GONE);
+            runOnUiThread(() -> {
+                this.findViewById(R.id.voice_chat_demo_main_input_layout).setVisibility(View.GONE);
+            });
         } else {
-            this.findViewById(R.id.voice_chat_demo_main_input_layout).setVisibility(View.VISIBLE);
+            runOnUiThread(() -> {
+                this.findViewById(R.id.voice_chat_demo_main_input_layout).setVisibility(View.VISIBLE);
+            });
         }
     }
 
@@ -735,8 +732,7 @@ public class Room extends AppCompatActivity {
         mRTCRoom = mRTCVideo.createRTCRoom(roomId);
         mRTCRoom.setRTCRoomEventHandler(mIRtcRoomEventHandler);
 
-        RTCRoomConfig roomConfig = new RTCRoomConfig(ChannelProfile.CHANNEL_PROFILE_COMMUNICATION,
-                true, true, true);
+        RTCRoomConfig roomConfig = new RTCRoomConfig(ChannelProfile.CHANNEL_PROFILE_COMMUNICATION, true, true, true);
 
         switch (userId) {
             case "1":
@@ -782,9 +778,7 @@ public class Room extends AppCompatActivity {
                             startScreenShare(data);
                             mRTCRoom.sendRoomMessage(StartShareScreenFlagString);
                             mRTCRoom.publishScreen(MediaStreamType.RTC_MEDIA_STREAM_TYPE_BOTH);
-                            mRTCVideo.setVideoSourceType(
-                                    StreamIndex.STREAM_INDEX_SCREEN,
-                                    VideoSourceType.VIDEO_SOURCE_TYPE_INTERNAL);
+                            mRTCVideo.setVideoSourceType(StreamIndex.STREAM_INDEX_SCREEN, VideoSourceType.VIDEO_SOURCE_TYPE_INTERNAL);
                         }
                     }
                 });
@@ -820,9 +814,7 @@ public class Room extends AppCompatActivity {
 
     private void setRemoteRenderView1(String uid, FrameLayout container) {
         TextureView renderView = new TextureView(this);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         container.removeAllViews();
         container.addView(renderView, params);
         if (mIsSharingScreen) {
@@ -846,9 +838,7 @@ public class Room extends AppCompatActivity {
 
         VideoCanvas videoCanvas = new VideoCanvas();
         TextureView renderView = new TextureView(this);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mUserList.add(new User(renderView, params, uid));
         FreshWidthHeight(mIsSharingScreen);
         mUserAdapter.notifyDataSetChanged();
@@ -861,7 +851,7 @@ public class Room extends AppCompatActivity {
         mRTCVideo.setLocalVideoCanvas(StreamIndex.STREAM_INDEX_MAIN, videoCanvas);
     }
 
-    private void setLocalRenderView(){
+    private void setLocalRenderView() {
         VideoCanvas videoCanvas = new VideoCanvas();
         TextureView renderView = new TextureView(this);
         FreshWidthHeight(mIsSharingScreen);
