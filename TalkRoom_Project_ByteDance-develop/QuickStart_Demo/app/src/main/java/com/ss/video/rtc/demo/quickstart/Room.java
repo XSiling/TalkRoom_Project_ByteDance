@@ -81,7 +81,6 @@ public class Room extends AppCompatActivity {
 
     private FrameLayout mSelfContainer;
     private FrameLayout shareScreenContainer;
-    private ImageView mclose;
     private TextView mSelfUserId;
     private final FrameLayout[] mRemoteContainerArray = new FrameLayout[7];
     private final TextView[] mUserIdArray = new TextView[7];
@@ -97,7 +96,7 @@ public class Room extends AppCompatActivity {
 
     private float whiteValue = 0;
     private float smoothValue = 0;
-    private boolean share = false;
+    //private boolean share = false;
 
 
     private SeekBar whiteBar;
@@ -107,6 +106,9 @@ public class Room extends AppCompatActivity {
     private boolean mIsMuteAudio = false;
     private boolean mIsMuteVideo = false;
     private boolean mIsMuteChat = true;
+    private boolean mIsSharingScreen = false;
+    private static String StopShareScreenFlagString = "#!Stop Sharing Screen!#";
+    private static String StartShareScreenFlagString = "#!Start Sharing Screen!#";
 
     private RTCVideo mRTCVideo;
     private RTCRoom mRTCRoom;
@@ -117,10 +119,6 @@ public class Room extends AppCompatActivity {
 
     private String userId;
 
-
-
-    //////
-
     private Timer timer;
     private boolean Start;
     private int cnt;
@@ -128,10 +126,7 @@ public class Room extends AppCompatActivity {
     private RecyclerView mVCChatRv;
     private final List<String> itemList = new ArrayList<>();
     private VCChatAdapter mVCChatAdapter;
-    //////
 
-/////////////////////////////
-////////////////////////////////////
 void setInvisible() {
     AlphaAnimation disappearAnimation = new AlphaAnimation(1, 0);
     disappearAnimation.setDuration(500);
@@ -236,21 +231,19 @@ void setInvisible() {
         mUserList.get(position).setmHeight(height);
     }
 
-    private void FreshWidthHeight(boolean share){
+    private void FreshWidthHeight(boolean mIsSharingScreen){
         //不在这个函数里notify change
         int totalWidth;
         int totalHeight;
         GridLayoutManager gridLayoutManager = new GridLayoutManager(Room.this, 4);
 
-       /* if (share){*/
+        if (mIsSharingScreen){
             totalWidth = this.getWindowManager().getDefaultDisplay().getWidth()/2;
             totalHeight = this.getWindowManager().getDefaultDisplay().getHeight() * 4 / 5;
-            /*
         }else{
             totalWidth = this.getWindowManager().getDefaultDisplay().getWidth();
             totalHeight = this.getWindowManager().getDefaultDisplay().getHeight() * 4 / 5;
         }
-*/
 
         int userNum = mUserList.size();
         switch (userNum){
@@ -376,7 +369,6 @@ void setInvisible() {
     }
 
     private RTCRoomEventHandlerAdapter mIRtcRoomEventHandler = new RTCRoomEventHandlerAdapter(){
-
         /**
          * 新用户加入本房间
          * @param userInfo
@@ -407,45 +399,61 @@ void setInvisible() {
         @Override
         public void onUserUnpublishScreen(String uid, MediaStreamType type, StreamRemoveReason reason) {
             super.onUserUnpublishScreen(uid, type, reason);
-            // shareScreenContainer.setVisibility(View.INVISIBLE);
             runOnUiThread(() -> removeRemoteView(uid));
-            mclose.setVisibility(View.INVISIBLE);
         }
 
-        //接受消息回调
         @Override
         public void onRoomMessageSendResult(long msgid, int error) {
             super.onRoomMessageSendResult(msgid, error);
             mHandler.sendMessage(Message.obtain(mHandler, 1));
             mVCChatAdapter.notifyDataSetChanged();
             mVCChatRv.smoothScrollToPosition(mVCChatAdapter.getItemCount()- 1);
-            Log.d("lfysendMessageID", String.valueOf(msgid));
-            Log.d("lfySendMessageResult", String.valueOf(error));
         }
 
         @Override
         public void onRoomMessageReceived(String uid, String message) {
             super.onUserMessageReceived(uid, message);
             mHandler.sendMessage(Message.obtain(mHandler, 1));
-            mVCChatAdapter.addChatMsg(uid + ": " + message);
-            mVCChatAdapter.notifyDataSetChanged();
-            mVCChatRv.smoothScrollToPosition(mVCChatAdapter.getItemCount()- 1);
-            Log.d("lfyUserMessageRecevied", uid + " " + message);
+            if (message.equals(StopShareScreenFlagString)){
+                Log.i("jy Trace L419", "Stop Sharing");
+                mIsSharingScreen = false;
+                updateShareScreenContainer();
+
+                runOnUiThread(()->setRemoteRenderView1(uid,shareScreenContainer));
+
+                /*
+                if(shareScreenContainer.getVisibility() == View.VISIBLE)
+                    shareScreenContainer.setVisibility(View.GONE);
+                    */
+
+                /*
+                FreshWidthHeight(mIsSharingScreen);
+                mUserAdapter.notifyDataSetChanged();*/
+            }else if(message.equals(StartShareScreenFlagString)){
+                Log.i("jy Trace L431","Start Sharing");
+                mIsSharingScreen = true;
+                updateShareScreenContainer();
+
+                runOnUiThread(()->setRemoteRenderView1(uid,shareScreenContainer));
+                /*
+                if(shareScreenContainer.getVisibility() == View.GONE)
+                    shareScreenContainer.setVisibility(View.VISIBLE);*/
+                /*
+                FreshWidthHeight(mIsSharingScreen);
+                mUserAdapter.notifyDataSetChanged();*/
+            }else {
+                mVCChatAdapter.addChatMsg(uid + ": " + message);
+                mVCChatAdapter.notifyDataSetChanged();
+                mVCChatRv.smoothScrollToPosition(mVCChatAdapter.getItemCount() - 1);
+            }
         }
-
-
     };
-
-
-
 
     private IRTCVideoEventHandler mIRtcVideoEventHandler = new IRTCVideoEventHandler(){
         @Override
         public void onFirstRemoteVideoFrameDecoded(RemoteStreamKey remoteStreamKey, VideoFrameInfo frameInfo) {
             super.onFirstRemoteVideoFrameDecoded(remoteStreamKey, frameInfo);
             Log.d("IRTCVideoEventHandler", "onFirstRemoteVideoFrame: " + remoteStreamKey.toString());
-//            Log.d("tag", "hello, the type is :"+String.valueOf(remoteStreamKey.getStreamIndex()));
-//            if (remoteStreamKey.getStreamIndex() == )
             runOnUiThread(() -> setRemoteView(remoteStreamKey.getRoomId(), remoteStreamKey.getUserId()));
         }
 
@@ -461,25 +469,6 @@ void setInvisible() {
             Log.d("IRTCVideoEventHandler","onError:" + err);
             showAlertDialog(String.format(Locale.US, "error: %d",err));
         }
-
-/*
-        @Override
-        public void onVideoDeviceStateChanged(String deviceId, VideoDeviceType deviceType, int deviceState, int deviceError) {
-            if (deviceType == VideoDeviceType.VIDEO_DEVICE_TYPE_SCREEN_CAPTURE_DEVICE) {
-                Log.d("msg","VIDEO_DEVICE_TYPE_SCREEN_CAPTURE_DEVICE");
-                if (deviceState == MediaDeviceState.MEDIA_DEVICE_STATE_STARTED) {
-                    //mRTCRoom.publishStream(MediaStreamType.RTC_MEDIA_STREAM_TYPE_BOTH);
-                    Log.d("msg","MEDIA_DEVICE_STATE_STARTED");
-                    mRTCRoom.publishScreen(MediaStreamType.RTC_MEDIA_STREAM_TYPE_BOTH);
-                    mRTCVideo.setVideoSourceType(StreamIndex.STREAM_INDEX_SCREEN, VideoSourceType.VIDEO_SOURCE_TYPE_INTERNAL);
-                } else if (deviceState == MediaDeviceState.MEDIA_DEVICE_STATE_STOPPED
-                        || deviceState == MediaDeviceState.MEDIA_DEVICE_STATE_RUNTIMEERROR) {
-                    //mRTCRoom.unpublishStream(MediaStreamType.RTC_MEDIA_STREAM_TYPE_BOTH);
-                    mRTCRoom.publishScreen(MediaStreamType.RTC_MEDIA_STREAM_TYPE_BOTH);
-                }
-            }
-        }*/
-
     };
 
 
@@ -506,10 +495,10 @@ void setInvisible() {
             }
         }
         mUserList.add(new User(renderView, params, uid));
-        FreshWidthHeight(share);
+        FreshWidthHeight(mIsSharingScreen);
+        //if(mIsSharingScreen)
+
         mUserAdapter.notifyDataSetChanged();
-//        container.removeAllViews();
-//        container.addView(renderView, params);
 
         VideoCanvas videoCanvas = new VideoCanvas();
         videoCanvas.renderView = renderView;
@@ -531,44 +520,21 @@ void setInvisible() {
                 }
                 else{
                     mUserList.remove(i);
-                    FreshWidthHeight(share);
+                    FreshWidthHeight(mIsSharingScreen);
                     mUserAdapter.notifyDataSetChanged();
                     break;
                 }
             }
         }
-
-        //如果没有的话，可以加新用户了
-//        int emptyInx = -1;
-//        for (int i = 0; i < mShowUidArray.length; i++) {
-//            if (TextUtils.isEmpty(mShowUidArray[i]) && emptyInx == -1) {
-//                emptyInx = i;
-//            } else if (TextUtils.equals(uid, mShowUidArray[i])) {
-//                return;
-//            }
-//        }
-//        if (emptyInx < 0) {
-//            return;
-//        }
-//        mShowUidArray[emptyInx] = uid;
-//        mUserIdArray[emptyInx].setText(uid);
-//        setRemoteRenderView(roomId, uid, mRemoteContainerArray[emptyInx]);
         setRemoteRenderView(roomId, uid);
     }
 
 
     private void removeRemoteView(String uid){
-//        for (int i=0; i < mShowUidArray.length; i++){
-//            if (TextUtils.equals(uid, mShowUidArray[i])){
-//                mShowUidArray[i] = null;
-//                mUserIdArray[i].setText("Empty");
-//                mRemoteContainerArray[i].removeAllViews();
-//            }
-//        }
         for (int i=0; i < mUserList.size(); ++i){
             if (Objects.equals(mUserList.get(i).mUid, uid)){
                 mUserList.remove(i);
-                FreshWidthHeight(share);
+                FreshWidthHeight(mIsSharingScreen);
                 mUserAdapter.notifyDataSetChanged();
                 break;
             }
@@ -722,10 +688,6 @@ void setInvisible() {
         chatButton = (ImageButton)this.findViewById(R.id.btn_chat);
         shareScreenContainer = findViewById(R.id.shareScreenView);
         shareScreenBtn = findViewById(R.id.btn_share_screen);
-
-        mclose=findViewById(R.id.close);
-        mclose.setVisibility(View.INVISIBLE);
-
 //        mclose.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -744,26 +706,6 @@ void setInvisible() {
         videoButton.setOnClickListener((v)-> updateLocalVideoStatus());
 
         chatButton.setOnClickListener((v)->updateChatStatus());
-//        findViewById(R.id.btn_switch_camera).setOnClickListener((v)->onSwitchCameraClick());
-
-//        mSelfContainer = findViewById(R.id.usr1_layout);
-//        mSelfUserId = findViewById(R.id.usr1_id);
-//        mRemoteContainerArray[0] = findViewById(R.id.usr2_layout);
-//        mRemoteContainerArray[1] = findViewById(R.id.usr3_layout);
-//        mRemoteContainerArray[2] = findViewById(R.id.usr4_layout);
-//        mRemoteContainerArray[3] = findViewById(R.id.usr5_layout);
-//        mRemoteContainerArray[4] = findViewById(R.id.usr6_layout);
-//        mRemoteContainerArray[5] = findViewById(R.id.usr7_layout);
-//        mRemoteContainerArray[6] = findViewById(R.id.usr8_layout);
-//
-//        mUserIdArray[0] = findViewById(R.id.usr2_id);
-//        mUserIdArray[1] = findViewById(R.id.usr3_id);
-//        mUserIdArray[2] = findViewById(R.id.usr4_id);
-//        mUserIdArray[3] = findViewById(R.id.usr5_id);
-//        mUserIdArray[4] = findViewById(R.id.usr6_id);
-//        mUserIdArray[5] = findViewById(R.id.usr7_id);
-//        mUserIdArray[6] = findViewById(R.id.usr8_id);
-
 
         ImageButton btn_LeaveRoom = (ImageButton) findViewById(R.id.btn_leaveroom);
         setButton = findViewById(R.id.btn_set);
@@ -813,6 +755,16 @@ void setInvisible() {
             this.findViewById(R.id.voice_chat_demo_main_input_layout).setVisibility(View.GONE);
         }else{
             this.findViewById(R.id.voice_chat_demo_main_input_layout).setVisibility(View.VISIBLE);
+        }
+    }
+    private void updateShareScreenContainer() {
+        if(mIsSharingScreen){
+            Log.i("jy Trace L757","Set Share Visible");
+            //this.findViewById(R.id.shareScreenView).setVisibility(View.VISIBLE);
+        }else{
+
+            Log.i("jy Trace L757","Set Share Gone");
+            //this.findViewById(R.id.shareScreenView).setVisibility(View.GONE);
         }
     }
 
@@ -887,19 +839,16 @@ void setInvisible() {
                 shareScreenBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (share) {
+                        if (mIsSharingScreen) {
                             //关闭分享
-                            share = false;
-//                            shareScreenBtn.setText("Screen Share");
+                            mIsSharingScreen = false;
+                            mRTCRoom.sendRoomMessage(StopShareScreenFlagString);
                             mRTCVideo.stopScreenCapture();
                         }else{
-                            share = true;
+                            mIsSharingScreen = true;
                             startScreenShare(data);
-                            Log.i("Hello","L859");
+                            mRTCRoom.sendRoomMessage(StartShareScreenFlagString);
                             mRTCRoom.publishScreen(MediaStreamType.RTC_MEDIA_STREAM_TYPE_BOTH);
-                            Log.i("Hello","L961");
-//                            shareScreenBtn.setText("Stop Sharing");
-//                            mclose.setVisibility(View.VISIBLE);
                             mRTCVideo.setVideoSourceType(
                                     StreamIndex.STREAM_INDEX_SCREEN,
                                     VideoSourceType.VIDEO_SOURCE_TYPE_INTERNAL);
@@ -913,7 +862,6 @@ void setInvisible() {
     }
 
     private void startScreenShare(Intent data) {
-        Log.i("Hello,startScreenShare","\t Line 877");
         startRXScreenCaptureService(data);
         //编码参数
         VideoEncoderConfig config = new VideoEncoderConfig();
@@ -923,7 +871,6 @@ void setInvisible() {
         config.maxBitrate = 1600;
         mRTCVideo.setScreenVideoEncoderConfig(config);
 
-        Log.i("Hello,startScreenShare","\t Line 881");
         // 开启屏幕视频数据采集
         mRTCVideo.startScreenCapture(ScreenMediaType.SCREEN_MEDIA_TYPE_VIDEO_AND_AUDIO, data);
     }
@@ -941,13 +888,20 @@ void setInvisible() {
     }
 
     private void setRemoteRenderView1(String uid, FrameLayout container) {
-        Log.i("SetRemoteRenderView1","L905");
         TextureView renderView = new TextureView(this);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         container.removeAllViews();
         container.addView(renderView, params);
+        if(mIsSharingScreen) {
+            Log.i("jy Trace:", "RenderRemote Share Visible");
+            container.setVisibility(View.VISIBLE);
+        }
+        else {
+            Log.i("jy Trace:", "RenderRemote Share Gone");
+            container.setVisibility(View.GONE);
+        }
         VideoCanvas videoCanvas = new VideoCanvas();
         videoCanvas.renderView = renderView;
         videoCanvas.roomId = getIntent().getStringExtra(Constants.ROOM_ID_EXTRA);
@@ -958,6 +912,27 @@ void setInvisible() {
         mRTCVideo.setRemoteVideoCanvas(uid, StreamIndex.STREAM_INDEX_SCREEN, videoCanvas);
     }
 
+
+    private void setRemoteRenderView_Unpublish(String uid, FrameLayout container) {
+        TextureView renderView = new TextureView(this);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        container.removeAllViews();
+        container.addView(renderView, params);
+        container.setVisibility(View.INVISIBLE);
+
+        VideoCanvas videoCanvas = new VideoCanvas();
+        videoCanvas.renderView = renderView;
+        videoCanvas.roomId = getIntent().getStringExtra(Constants.ROOM_ID_EXTRA);
+        videoCanvas.isScreen=true;
+        videoCanvas.uid =uid;
+        videoCanvas.renderMode = VideoCanvas.RENDER_MODE_Fill;
+        // 设置远端用户视频渲染视图
+        mRTCVideo.setRemoteVideoCanvas(uid, StreamIndex.STREAM_INDEX_SCREEN, videoCanvas);
+
+    }
+
     private void setLocalRenderView(String uid){
 
         VideoCanvas videoCanvas = new VideoCanvas();
@@ -965,9 +940,8 @@ void setInvisible() {
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
-        //FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(500,500);
         mUserList.add(new User(renderView, params, uid));
-        FreshWidthHeight(share);
+        FreshWidthHeight(mIsSharingScreen);
         mUserAdapter.notifyDataSetChanged();
 
         videoCanvas.renderView = renderView;
@@ -976,7 +950,6 @@ void setInvisible() {
         videoCanvas.renderMode = VideoCanvas.RENDER_MODE_HIDDEN;
 
         mRTCVideo.setLocalVideoCanvas(StreamIndex.STREAM_INDEX_MAIN, videoCanvas);
-
     }
 
     @Override
