@@ -88,16 +88,18 @@ public class Room extends AppCompatActivity {
 
     /*** parameters related to room status
      * Parameters that different users in the same room may differ:
-     * @mIsMuteAudio:
-     * @mIsMuteVideo
-     * @mIsMuteChat
+     * @param mIsMuteAudio
+     * @param mIsMuteVideo
+     * @param mIsMuteChat
+     * @param mIfHiddenToolBar
      * Parameters that users in the same room share the same value:
-     * @mIsSharingScreen we sync this value by sending room message
+     * @param mIsSharingScreen we sync this value by sending room message
      */
 
     private boolean mIsMuteAudio = false;
     private boolean mIsMuteVideo = false;
     private boolean mIsMuteChat = true;
+    private boolean mIfHiddenToolBar = false;
     private boolean mIsSharingScreen = false;
 
     private RTCVideo mRTCVideo;
@@ -215,10 +217,10 @@ public class Room extends AppCompatActivity {
 
         if (mIsSharingScreen) {
             totalWidth = this.getWindowManager().getDefaultDisplay().getWidth() / 2;
-            totalHeight = this.getWindowManager().getDefaultDisplay().getHeight() * 4 / 5;
+            totalHeight = this.getWindowManager().getDefaultDisplay().getHeight();
         } else {
             totalWidth = this.getWindowManager().getDefaultDisplay().getWidth();
-            totalHeight = this.getWindowManager().getDefaultDisplay().getHeight() * 4 / 5;
+            totalHeight = this.getWindowManager().getDefaultDisplay().getHeight();
         }
 
         int userNum = mUserList.size();
@@ -604,6 +606,8 @@ public class Room extends AppCompatActivity {
             super(itemView);
             avatar_layout = itemView.findViewById(R.id.user_layout);
             id_layout = itemView.findViewById(R.id.user_id);
+            // avatar_layout.setClickable(false);
+            avatar_layout.setOnClickListener((v) -> updateToolbarStatus());
         }
     }
 
@@ -628,10 +632,11 @@ public class Room extends AppCompatActivity {
         shareScreenBtn = findViewById(R.id.btn_share_screen);
 
         micButton.setOnClickListener((v) -> updateLocalMicStatus());
-
         videoButton.setOnClickListener((v) -> updateLocalVideoStatus());
-
         chatButton.setOnClickListener((v) -> updateChatStatus());
+
+        findViewById(R.id.allVideoContainer).setOnClickListener((v) -> updateToolbarStatus());
+        shareScreenBtn.setOnClickListener((v) -> updateToolbarStatus());
 
         ImageButton btn_LeaveRoom = findViewById(R.id.btn_leaveroom);
         setButton = findViewById(R.id.btn_set);
@@ -661,7 +666,6 @@ public class Room extends AppCompatActivity {
         mRTCVideo.switchCamera(mCameraID);
     }
 
-
     private void updateLocalMicStatus() {
         mIsMuteAudio = !mIsMuteAudio;
         if (mIsMuteAudio) {
@@ -672,6 +676,24 @@ public class Room extends AppCompatActivity {
             mRTCRoom.publishStream(MediaStreamType.RTC_MEDIA_STREAM_TYPE_VIDEO);
             mUserList.get(0).setmUid(userId);
             mUserAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void updateToolbarStatus() {
+        Log.i("tag", "clicked!");
+        mIfHiddenToolBar = !mIfHiddenToolBar;
+        if (mIfHiddenToolBar) {
+            runOnUiThread(() -> {
+                removeRemoteView(userId);
+                setLocalRenderView(userId);
+                findViewById(R.id.toolbar).setVisibility(View.GONE);
+            });
+        } else {
+            runOnUiThread(() -> {
+                removeRemoteView(userId);
+                setLocalRenderView(userId);
+                findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
+            });
         }
     }
 
@@ -836,6 +858,19 @@ public class Room extends AppCompatActivity {
         videoCanvas.isScreen = false;
         videoCanvas.renderMode = VideoCanvas.RENDER_MODE_HIDDEN;
 
+        mRTCVideo.setLocalVideoCanvas(StreamIndex.STREAM_INDEX_MAIN, videoCanvas);
+    }
+
+    private void setLocalRenderView(){
+        VideoCanvas videoCanvas = new VideoCanvas();
+        TextureView renderView = new TextureView(this);
+        FreshWidthHeight(mIsSharingScreen);
+        mUserAdapter.notifyDataSetChanged();
+
+        videoCanvas.renderView = renderView;
+        videoCanvas.uid = userId;
+        videoCanvas.isScreen = false;
+        videoCanvas.renderMode = VideoCanvas.RENDER_MODE_HIDDEN;
         mRTCVideo.setLocalVideoCanvas(StreamIndex.STREAM_INDEX_MAIN, videoCanvas);
     }
 
