@@ -41,49 +41,118 @@
             </FrameLayout>
             >
         </LinearLayout>
+    </LinearLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="245dp"
+        >
+
+        <!--   输入框 + 发送   -->
+        <LinearLayout
+            android:id="@+id/voice_chat_demo_main_input_layout"
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:background="#000E0825"
+            android:visibility="visible"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <EditText
+                android:id="@+id/voice_chat_demo_main_input_et"
+                android:layout_width="398dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="4dp"
+                android:background="@drawable/inputbox_background"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:hint="说点什么"
+                android:maxLines="3"
+                android:minHeight="36dp"
+                android:paddingHorizontal="16dp"
+                android:textColor="@color/white"
+                android:textColorHint="#80FFFFFF"
+                android:textSize="14dp" />
+
+
+            <TextView
+                android:id="@+id/voice_chat_demo_main_input_send"
+                android:layout_width="98dp"
+                android:layout_height="32dp"
+                android:layout_gravity="right|bottom"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:background="@drawable/send_box"
+                android:gravity="center"
+                android:text="发送"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="281dp"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:id="@+id/toolbar_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:orientation="vertical"
+            android:visibility="visible">
 
 
         <LinearLayout
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.6"
-            android:background="@color/white"
-            android:visibility="visible"
-            android:orientation="horizontal">
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/textview_border"
+            android:orientation="horizontal"
+            android:visibility="visible">
 
             <FrameLayout
                 android:id="@+id/reference"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:background="@color/transparent"
                 android:layout_weight="1">
 
                 <ImageButton
                     android:id="@+id/btn_mic"
-                    android:background="#00FF0000"
-                    android:src="@drawable/pic_mic"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background = "@drawable/button_background"
+                    android:layout_gravity="center"
+
                     android:scaleType="fitCenter"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"/>
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:text="MIC" />-->
+                    android:src="@drawable/pic_mic" />
             </FrameLayout>
 
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
+
                 <ImageButton
                     android:id="@+id/btn_leaveroom"
-                    android:background="#00FF0000"
-                    android:src="@drawable/pic_leave"
-                    android:scaleType="fitCenter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background = "@drawable/button_background"
                     android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/pic_leave"
                     android:text="Leave Room" />
             </FrameLayout>
 
@@ -94,12 +163,12 @@
 
                 <ImageButton
                     android:id="@+id/btn_chat"
-                    android:background="#00FF0000"
-                    android:src="@drawable/pic_chat"
-                    android:scaleType="fitCenter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background = "@drawable/button_background"
                     android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/pic_chat"
                     android:text="Chat" />
             </FrameLayout>
 
@@ -111,12 +180,12 @@
 
                 <ImageButton
                     android:id="@+id/btn_share_screen"
-                    android:background="#00FF0000"
-                    android:src="@drawable/pic_share"
-                    android:scaleType="fitCenter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
+                    android:background = "@drawable/button_background"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/pic_share"
                     android:text="Share Screen" />
             </FrameLayout>
 
@@ -125,118 +194,37 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
+
                 <ImageButton
                     android:id="@+id/btn_video"
-                    android:background="#00FF0000"
-                    android:src="@drawable/pic_video"
-                    android:scaleType="fitCenter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
+                    android:background = "@drawable/button_background"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/pic_video"
                     android:text="Video" />
             </FrameLayout>
-
-<!--            <FrameLayout-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1">-->
-<!--                <Button-->
-<!--                    android:id="@+id/btn_switch_camera"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:text="Switch"/>-->
-<!--            </FrameLayout>-->
 
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
+
                 <ImageButton
                     android:id="@+id/btn_set"
-                    android:background="#00FF0000"
-                    android:src="@drawable/pic_set"
-                    android:scaleType="fitCenter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
-                    android:text="Set"/>
+                    android:background = "@drawable/button_background"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/pic_set"
+                    android:text="Set" />
             </FrameLayout>
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <SeekBar-->
-<!--                    android:id="@+id/beautySeek"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="0dp"-->
-<!--                    android:layout_weight="1"></SeekBar>-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="0dp"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:gravity="center"-->
-<!--                    android:text="Set Beauty">-->
-
-<!--                </TextView>-->
-
-
-<!--            </LinearLayout>-->
-
         </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
 
-        <!--   输入框 + 发送   -->
-        <FrameLayout
-            android:id="@+id/voice_chat_demo_main_input_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#F20E0825"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <EditText
-                android:id="@+id/voice_chat_demo_main_input_et"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="88dp"
-                android:background="@color/white"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:hint="说点什么"
-                android:maxLines="3"
-                android:minHeight="36dp"
-                android:paddingHorizontal="16dp"
-                android:textColor="@color/black"
-                android:textColorHint="#46FFFFFF"
-                android:textSize="14dp" />
-
-            <TextView
-                android:id="@+id/voice_chat_demo_main_input_send"
-                android:layout_width="60dp"
-                android:layout_height="28dp"
-                android:layout_gravity="right|bottom"
-                android:layout_marginBottom="4dp"
-                android:layout_marginRight="16dp"
-                android:background="#1664FF"
-                android:gravity="center"
-                android:text="发送"
-                android:textColor="@color/white"
-                android:textSize="14dp" />
-
-        </FrameLayout>
-
-
-
-    </LinearLayout>
 
     <View
         android:id="@+id/review"
