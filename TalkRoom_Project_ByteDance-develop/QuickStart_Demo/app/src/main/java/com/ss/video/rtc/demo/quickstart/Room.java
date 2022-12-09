@@ -682,10 +682,12 @@ public class Room extends AppCompatActivity {
         if (mIfHiddenToolBar) {
             runOnUiThread(() -> {
                 findViewById(R.id.toolbar).setVisibility(View.GONE);
+                findViewById(R.id.voice_chat_demo_main_input_layout).setVisibility(View.GONE);
             });
         } else {
             runOnUiThread(() -> {
                 findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
+                findViewById(R.id.voice_chat_demo_main_input_layout).setVisibility(View.VISIBLE);
             });
         }
     }
