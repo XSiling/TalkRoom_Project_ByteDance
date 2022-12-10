@@ -18,11 +18,12 @@
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MinimRTCDemo"
-        android:requestLegacyExternalStorage="true">
-        <activity android:name="com.ss.video.rtc.demo.quickstart.LogIn"
+        android:theme="@style/Theme.MinimRTCDemo">
+        <activity
+            android:name="com.ss.video.rtc.demo.quickstart.LogIn"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -36,7 +37,12 @@
 
         <activity android:name='com.ss.video.rtc.demo.quickstart.TabSwitcherActivity'></activity>
 
-        <activity android:name='com.ss.video.rtc.demo.quickstart.Room'
+        <activity
+            android:name='com.ss.video.rtc.demo.quickstart.TabSwitcher.WebPage'
+            android:exported="false"></activity>
+
+        <activity
+            android:name='com.ss.video.rtc.demo.quickstart.Room'
             android:launchMode="singleTop"
             android:screenOrientation="landscape"></activity>
 
