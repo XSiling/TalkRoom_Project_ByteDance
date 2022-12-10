@@ -376,7 +376,7 @@ public class Room extends AppCompatActivity {
         @Override
         public void onUserUnpublishScreen(String uid, MediaStreamType type, StreamRemoveReason reason) {
             super.onUserUnpublishScreen(uid, type, reason);
-            runOnUiThread(() -> removeRemoteView(uid));
+       //     runOnUiThread(() -> removeRemoteView(uid));
         }
 
         @Override
