@@ -1,14 +1,22 @@
 package com.ss.video.rtc.demo.quickstart.TabSwitcher;
 
+import java.util.ArrayList;
+import java.util.List;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.ss.rtc.demo.quickstart.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +24,11 @@ import com.ss.rtc.demo.quickstart.R;
  * create an instance of this fragment.
  */
 public class NewsFragment extends BaseFragment {
+    private RecyclerView newsRV;
+    private List<NewsItem> newsList;
+
+    private NewsRecyclerAdapter newsRVAdapter;
+
 
     private static final String TAG = "NewsFragment";
 
@@ -32,7 +45,18 @@ public class NewsFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news, container, false);
+        View view =  inflater.inflate(R.layout.fragment_news, container, false);
+
+        newsRV = view.findViewById(R.id.newsRecyclerView);
+        newsList =new ArrayList<>();
+        addNewsItem();
+        newsRVAdapter = new NewsRecyclerAdapter(getActivity(), newsList, this);
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        newsRV.setLayoutManager(manager);
+        newsRV.setAdapter(newsRVAdapter);
+
+        return view;
     }
 
     @Override
@@ -75,5 +99,16 @@ public class NewsFragment extends BaseFragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private void addNewsItem(){
+        newsList.add(new NewsItem("1. 梅西：你在看什么，蠢货","https://m.hupu.com/bbs/56876571.html"));
+        newsList.add(new NewsItem("2. 世界杯前瞻：英法大战一触即发，摩洛哥能否改写非洲球队最高8强的历史？","https://m.hupu.com/bbs/56875954.html"));
+        newsList.add(new NewsItem("3. [每日之星]利瓦科维奇当选世界杯今日最佳球员","https://m.hupu.com/bbs/56876192.html"));
+        newsList.add(new NewsItem("4. [话题区圆桌]荷阿之战共计17张黄牌！世界杯你还知道哪些奇葩纪录","https://m.hupu.com/bbs/56879760.html"));
+        newsList.add(new NewsItem("5. [流言板]蒂特：克罗地亚除了进球没伤害我们；巴西新一代正不断涌现","https://m.hupu.com/bbs/56881735.html"));
+        newsList.add(new NewsItem("6. [流言板]内马尔：这对我来说像是噩梦；会慎重考虑自己国家队的未来","https://m.hupu.com/bbs/56881367.html"));
+        newsList.add(new NewsItem("7. 点球之夜巴西、荷兰出局！提起点球大战，那些经典是否还历历在目？","https://m.hupu.com/bbs/56877919.html"));
+        newsList.add(new NewsItem("8. [流言板]阿根廷进入世界杯半决赛后，梅西有望成为世界杯历史出场王","https://m.hupu.com/bbs/56881101.html"));
     }
 }
