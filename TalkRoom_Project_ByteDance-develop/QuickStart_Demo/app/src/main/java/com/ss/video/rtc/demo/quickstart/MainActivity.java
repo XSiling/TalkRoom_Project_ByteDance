@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         createroomButton.setOnClickListener((v) -> {
             String roomIdContent = roomId.getText().toString();
             joinRoom(roomIdContent);
-
         });
     }
 
@@ -49,9 +48,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        Intent j = new Intent(MainActivity.this, Room.class);
-        j.putExtra(Constants.ROOM_ID_EXTRA, roomId);
 
+        Intent j = new Intent(MainActivity.this, Room.class);
+
+        j.putExtra(Constants.ROOM_ID_EXTRA, roomId);
         j.putExtra(Constants.USER_ID_EXTRA, usrId);
 
         startActivity(j);

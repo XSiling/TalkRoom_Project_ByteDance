@@ -104,10 +104,14 @@ public class LogIn extends AppCompatActivity {
             return;
         }
 
+        /*
         Intent i = new Intent(LogIn.this, MainActivity.class);
-
         i.putExtra(Constants.USER_ID_EXTRA, usrId);
-        Log.d("tag","hello!!!!!!!!!!!" + Constants.USER_ID_EXTRA);
         startActivity(i);
+         */
+
+        Intent j = new Intent(LogIn.this, TabSwitcherActivity.class);
+        j.putExtra(Constants.USER_ID_EXTRA, usrId);
+        startActivity(j);
     }
 }
