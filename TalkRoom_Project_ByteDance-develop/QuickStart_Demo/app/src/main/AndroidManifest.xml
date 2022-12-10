@@ -23,6 +23,7 @@
         android:theme="@style/Theme.MinimRTCDemo"
         android:requestLegacyExternalStorage="true">
         <activity android:name="com.ss.video.rtc.demo.quickstart.LogIn"
+            android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +33,9 @@
         </activity>
 
         <activity android:name='com.ss.video.rtc.demo.quickstart.MainActivity'></activity>
+
+        <activity android:name='com.ss.video.rtc.demo.quickstart.TabSwitcherActivity'></activity>
+
         <activity android:name='com.ss.video.rtc.demo.quickstart.Room'
             android:launchMode="singleTop"
             android:screenOrientation="landscape"></activity>

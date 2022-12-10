@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context="com.ss.video.rtc.demo.quickstart.TabSwitcher.TabSwitcherFragment"
+    >
+
+<com.google.android.material.tabs.TabLayout
+    android:id="@+id/tab_layout"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    app:tabIndicatorColor="@color/black"
+    app:tabIndicatorHeight="2dp"
+    app:tabIndicatorFullWidth="false"
+    app:tabIndicatorGravity="bottom"
+    app:tabGravity="center"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<View
+    android:id="@+id/divider"
+    android:layout_width="match_parent"
+    android:layout_height="2dp"
+    android:background="#1A000000" />
+
+<androidx.viewpager2.widget.ViewPager2
+    android:id="@+id/view_pager_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    />
+</LinearLayout>
+
+
