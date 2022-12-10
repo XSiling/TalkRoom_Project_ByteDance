@@ -376,7 +376,7 @@ public class Room extends AppCompatActivity {
         @Override
         public void onUserUnpublishScreen(String uid, MediaStreamType type, StreamRemoveReason reason) {
             super.onUserUnpublishScreen(uid, type, reason);
-            runOnUiThread(() -> removeRemoteView(uid));
+       //     runOnUiThread(() -> removeRemoteView(uid));
         }
 
         @Override
@@ -633,7 +633,22 @@ public class Room extends AppCompatActivity {
         chatButton.setOnClickListener((v) -> updateChatStatus());
 
         findViewById(R.id.allVideoContainer).setOnClickListener((v) -> updateToolbarStatus());
-        shareScreenBtn.setOnClickListener((v) -> updateToolbarStatus());
+
+        shareScreenBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIsSharingScreen) {
+                    // stop sharing
+                    mIsSharingScreen = false;
+                    mRTCRoom.sendRoomMessage(StopShareScreenFlagString);
+                    mRTCVideo.stopScreenCapture();
+                } else {
+                    // start sharing
+                    mIsSharingScreen = true;
+                    requestForScreenSharing();
+                }
+            }
+        });
 
         ImageButton btn_LeaveRoom = findViewById(R.id.btn_leaveroom);
         setButton = findViewById(R.id.btn_set);
@@ -757,7 +772,6 @@ public class Room extends AppCompatActivity {
                 break;
         }
         Log.i("tag", "initEngineAndJoinRoom:" + joinRoomRes);
-        requestForScreenSharing();
     }
 
 
@@ -765,7 +779,13 @@ public class Room extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case REQUEST_CODE_OF_SCREEN_SHARING:
+            case REQUEST_CODE_OF_SCREEN_SHARING: {
+                // start sharing
+                mIsSharingScreen = true;
+                startScreenShare(data);
+                mRTCRoom.sendRoomMessage(StartShareScreenFlagString);
+                mRTCRoom.publishScreen(MediaStreamType.RTC_MEDIA_STREAM_TYPE_BOTH);
+                mRTCVideo.setVideoSourceType(StreamIndex.STREAM_INDEX_SCREEN, VideoSourceType.VIDEO_SOURCE_TYPE_INTERNAL);
                 shareScreenBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -774,6 +794,7 @@ public class Room extends AppCompatActivity {
                             mIsSharingScreen = false;
                             mRTCRoom.sendRoomMessage(StopShareScreenFlagString);
                             mRTCVideo.stopScreenCapture();
+
                         } else {
                             // start sharing
                             mIsSharingScreen = true;
@@ -784,6 +805,7 @@ public class Room extends AppCompatActivity {
                         }
                     }
                 });
+            }
         }
     }
 
